@@ -72,7 +72,7 @@ public class BlockInit {
                     Properties.of().mapColor(MapColor.COLOR_GREEN).strength(3.0F, 10).sound(ACSoundTypes.URANIUM).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> POLARIZED_CRATE = registerBlock("polarized_crate",
             () -> new Block(BlockBehaviour.
-                    Properties.of().mapColor(MapColor.COLOR_GRAY).strength(1.0F, 10).sound(ACSoundTypes.NEODYMIUM)));
+                    Properties.of().mapColor(MapColor.COLOR_GRAY).strength(0.5F, 10).sound(ACSoundTypes.NEODYMIUM)));
     public static final RegistryObject<Block> LICOROOT_CRATE = registerBlock("licoroot_crate",
             () -> new Block(BlockBehaviour.
                     Properties.of().mapColor(MapColor.COLOR_MAGENTA).strength(3.0F, 10).sound(ACSoundTypes.HARD_CANDY).requiresCorrectToolForDrops()));
