@@ -1,7 +1,7 @@
 package destiny.secretsofthevoid.client.render;
 
 import destiny.secretsofthevoid.client.models.AbyssalithGearModel;
-import destiny.secretsofthevoid.items.diving_gear.AbyssalithGearItem;
+import destiny.secretsofthevoid.server.items.diving_gear.AbyssalithGearItem;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;

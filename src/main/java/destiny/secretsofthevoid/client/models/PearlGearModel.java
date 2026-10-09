@@ -1,7 +1,7 @@
 package destiny.secretsofthevoid.client.models;
 
-import destiny.secretsofthevoid.SecretsOfTheVoid;
-import destiny.secretsofthevoid.items.diving_gear.PearlGearItem;
+import destiny.secretsofthevoid.server.SecretsOfTheVoid;
+import destiny.secretsofthevoid.server.items.diving_gear.PearlGearItem;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;

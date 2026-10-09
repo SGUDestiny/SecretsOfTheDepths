@@ -2,12 +2,12 @@ package destiny.secretsofthevoid.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.datafixers.util.Pair;
-import destiny.secretsofthevoid.SecretsOfTheVoid;
-import destiny.secretsofthevoid.capabilities.DivingCapability;
-import destiny.secretsofthevoid.helper.IBacktank;
-import destiny.secretsofthevoid.init.CapabilitiesInit;
-import destiny.secretsofthevoid.init.ItemInit;
-import destiny.secretsofthevoid.network.ClientPacketHandler;
+import destiny.secretsofthevoid.server.SecretsOfTheVoid;
+import destiny.secretsofthevoid.server.capabilities.DivingCapability;
+import destiny.secretsofthevoid.server.helper.IBacktank;
+import destiny.secretsofthevoid.server.init.CapabilitiesInit;
+import destiny.secretsofthevoid.server.init.ItemInit;
+import destiny.secretsofthevoid.server.network.ClientPacketHandler;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;

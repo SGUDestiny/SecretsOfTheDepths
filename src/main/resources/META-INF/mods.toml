@@ -38,7 +38,7 @@ description='''Secrets of the Void is an addon to well-known Alex's Caves mod, e
 [[dependencies.secretsofthevoid]]
     modId="alexscaves"
     mandatory=true
-    versionRange="[2.0.0,)"
+    versionRange="[2.0.2,)"
     ordering="AFTER"
     side="BOTH"
 [[dependencies.secretsofthevoid]]

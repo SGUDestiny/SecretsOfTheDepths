@@ -1,6 +1,6 @@
 package destiny.secretsofthevoid.client.gui;
 
-import destiny.secretsofthevoid.SecretsOfTheVoid;
+import destiny.secretsofthevoid.server.SecretsOfTheVoid;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.client.gui.GuiGraphics;

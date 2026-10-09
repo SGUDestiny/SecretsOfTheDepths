@@ -1,7 +1,7 @@
 package destiny.secretsofthevoid.client.render;
 
-import destiny.secretsofthevoid.SecretsOfTheVoid;
-import destiny.secretsofthevoid.entity.PowerArmorEntity;
+import destiny.secretsofthevoid.server.SecretsOfTheVoid;
+import destiny.secretsofthevoid.server.entity.PowerArmorEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;

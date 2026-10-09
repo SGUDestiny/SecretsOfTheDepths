@@ -2,7 +2,7 @@ package destiny.secretsofthevoid.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import destiny.secretsofthevoid.blocks.blockentity.SuspiciousBlockEntity;
+import destiny.secretsofthevoid.server.blocks.blockentity.SuspiciousBlockEntity;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
