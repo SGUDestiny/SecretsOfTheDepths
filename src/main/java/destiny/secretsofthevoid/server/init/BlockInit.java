@@ -59,23 +59,23 @@ public class BlockInit {
 
     //Crate Blocks
     public static final RegistryObject<Block> HADAL_CRATE = registerBlock("hadal_crate",
-            () -> new Block(BlockBehaviour.
-                    Properties.of().mapColor(MapColor.COLOR_BLUE).strength(3.0F, 10).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
+            () -> new BiomeCrateBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE)
+                    .strength(0.25f, 10).sound(SoundType.DEEPSLATE), "gameplay/hadal_crate"));
     public static final RegistryObject<Block> ELDRITCH_CRATE = registerBlock("eldritch_crate",
             () -> new Block(BlockBehaviour.
-                    Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(3.0F, 10).sound(ACSoundTypes.PEERING_COPROLITH).requiresCorrectToolForDrops()));
+                    Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.25f, 10).sound(ACSoundTypes.PEERING_COPROLITH).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> PREHISTORIC_CRATE = registerBlock("prehistoric_crate",
             () -> new Block(BlockBehaviour.
-                    Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(3.0F, 10).sound(ACSoundTypes.AMBER).requiresCorrectToolForDrops()));
+                    Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.25f, 10).sound(ACSoundTypes.AMBER).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> IRRADIATED_CRATE = registerBlock("irradiated_crate",
-            () -> new Block(BlockBehaviour.
-                    Properties.of().mapColor(MapColor.COLOR_GREEN).strength(3.0F, 10).sound(ACSoundTypes.URANIUM).requiresCorrectToolForDrops()));
+            () -> new BiomeCrateBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN)
+                    .strength(0.25f, 10).sound(ACSoundTypes.URANIUM), "gameplay/irradiated_crate"));
     public static final RegistryObject<Block> POLARIZED_CRATE = registerBlock("polarized_crate",
-            () -> new Block(BlockBehaviour.
-                    Properties.of().mapColor(MapColor.COLOR_GRAY).strength(1.0F, 10).sound(ACSoundTypes.NEODYMIUM)));
+            () -> new BiomeCrateBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY)
+                    .strength(0.25f, 10).sound(ACSoundTypes.NEODYMIUM), "gameplay/polarized_crate"));
     public static final RegistryObject<Block> LICOROOT_CRATE = registerBlock("licoroot_crate",
             () -> new Block(BlockBehaviour.
-                    Properties.of().mapColor(MapColor.COLOR_MAGENTA).strength(3.0F, 10).sound(ACSoundTypes.HARD_CANDY).requiresCorrectToolForDrops()));
+                    Properties.of().mapColor(MapColor.COLOR_MAGENTA).strength(0.25f, 10).sound(ACSoundTypes.HARD_CANDY).requiresCorrectToolForDrops()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

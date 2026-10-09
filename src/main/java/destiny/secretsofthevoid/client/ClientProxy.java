@@ -4,7 +4,6 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.baked.BakedModelShadeLayerFullbright;
 import com.github.alexmodguy.alexscaves.server.CommonProxy;
 import com.google.common.collect.ImmutableList;
-import destiny.secretsofthevoid.server.blocks.blockentity.SuspiciousBlockEntity;
 import destiny.secretsofthevoid.client.render.SuspiciousBlockEntityRenderer;
 import destiny.secretsofthevoid.server.events.ClientEvents;
 import destiny.secretsofthevoid.server.init.BlockEntitiesInit;

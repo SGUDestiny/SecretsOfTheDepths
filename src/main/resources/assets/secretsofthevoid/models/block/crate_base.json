@@ -23,6 +23,7 @@
 				"block_light": 15,
 				"sky_light": 15
 			},
+			"shade": false,
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#inside"},
 				"east": {"uv": [0, 0, 16, 16], "texture": "#inside"},

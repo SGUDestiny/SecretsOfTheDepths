@@ -43,10 +43,6 @@ public class SecretsOfTheVoid {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ServerConfig.SPEC);
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) {
-        event.enqueueWork(() -> PROXY.clientInit());
-    }
-
     @Mod.EventBusSubscriber(modid = MODID, bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class ModEvents
     {
@@ -69,6 +65,8 @@ public class SecretsOfTheVoid {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+            event.enqueueWork(() -> PROXY.clientInit());
+
             event.enqueueWork(() -> {
                 ItemProperties.register(ItemInit.HADAL_SWORD.get(), new ResourceLocation(MODID, "active"), new HadalItemProperty());
                 ItemProperties.register(ItemInit.HADAL_PICKAXE.get(), new ResourceLocation(MODID, "active"), new HadalItemProperty());
