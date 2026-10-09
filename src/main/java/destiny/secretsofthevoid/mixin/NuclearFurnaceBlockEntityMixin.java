@@ -2,6 +2,9 @@ package destiny.secretsofthevoid.mixin;
 
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearFurnaceBlockEntity;
 import destiny.secretsofthevoid.server.ServerConfig;
+import destiny.secretsofthevoid.server.network.packets.UpdateFurnaceItemPacket;
+import destiny.secretsofthevoid.server.registry.NetworkRegistry;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,13 +40,18 @@ public abstract class NuclearFurnaceBlockEntityMixin {
      * @reason
      */
     @Overwrite
-    public void setItem(int slot, ItemStack itemStack) {
+    public void setItem(int slot, ItemStack itemStack)
+    {
+        NuclearFurnaceBlockEntity blockEntity = ((NuclearFurnaceBlockEntity)(Object)this);
         this.items.set(slot, itemStack);
-        if (itemStack.getCount() > ((NuclearFurnaceBlockEntity)(Object)this).getMaxStackSize()) {
-            itemStack.setCount(((NuclearFurnaceBlockEntity)(Object)this).getMaxStackSize());
+        if (itemStack.getCount() > blockEntity.getMaxStackSize()) {
+            itemStack.setCount(blockEntity.getMaxStackSize());
         }
 
-        ((NuclearFurnaceBlockEntity)(Object)this).setChanged();
+        BlockPos pos = blockEntity.getBlockPos();
+
+        blockEntity.setChanged();
         syncWithClient();
+        NetworkRegistry.sendToTracking(blockEntity, new UpdateFurnaceItemPacket(pos, slot, itemStack));
     }
 }
