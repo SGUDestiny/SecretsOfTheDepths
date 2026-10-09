@@ -1,0 +1,182 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "rolls": {
+        "type": "minecraft:constant",
+        "value": 1
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "alexscaves:cave_tablet",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_nbt",
+              "tag": "{CaveBiome:\"alexscaves:forlorn_hollows\"}"
+            },
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 4
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "alexscaves:guano",
+          "weight": 50,
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 6,
+                "max": 24
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "alexscaves:moth_dust",
+          "weight": 40,
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 8,
+                "max": 26
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "alexscaves:thornwood_branch",
+          "weight": 40,
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 6,
+                "max": 24
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "alexscaves:corrodent_teeth",
+          "weight": 35,
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 8,
+                "max": 20
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "alexscaves:dark_tatters",
+          "weight": 30,
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 8,
+                "max": 28
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "alexscaves:vesper_wing",
+          "weight": 25,
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 8,
+                "max": 16
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "alexscaves:burrowing_arrow",
+          "weight": 25,
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 8,
+                "max": 48
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "alexscaves:occult_gem",
+          "weight": 15,
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 4,
+                "max": 8
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "alexscaves:pure_darkness",
+          "weight": 10,
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 6
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "alexscaves:desolate_dagger",
+          "weight": 5,
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

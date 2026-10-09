@@ -62,11 +62,11 @@ public class BlockInit {
             () -> new BiomeCrateBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE)
                     .strength(0.25f, 10).sound(SoundType.DEEPSLATE), "gameplay/hadal_crate"));
     public static final RegistryObject<Block> ELDRITCH_CRATE = registerBlock("eldritch_crate",
-            () -> new Block(BlockBehaviour.
-                    Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.25f, 10).sound(ACSoundTypes.PEERING_COPROLITH).requiresCorrectToolForDrops()));
+            () -> new BiomeCrateBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE)
+                    .strength(0.25f, 10).sound(ACSoundTypes.PEERING_COPROLITH), "gameplay/eldritch_crate"));
     public static final RegistryObject<Block> PREHISTORIC_CRATE = registerBlock("prehistoric_crate",
-            () -> new Block(BlockBehaviour.
-                    Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.25f, 10).sound(ACSoundTypes.AMBER).requiresCorrectToolForDrops()));
+            () -> new BiomeCrateBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE)
+                    .strength(0.25f, 10).sound(ACSoundTypes.AMBER), "gameplay/prehistoric_crate"));
     public static final RegistryObject<Block> IRRADIATED_CRATE = registerBlock("irradiated_crate",
             () -> new BiomeCrateBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN)
                     .strength(0.25f, 10).sound(ACSoundTypes.URANIUM), "gameplay/irradiated_crate"));
@@ -74,8 +74,8 @@ public class BlockInit {
             () -> new BiomeCrateBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY)
                     .strength(0.25f, 10).sound(ACSoundTypes.NEODYMIUM), "gameplay/polarized_crate"));
     public static final RegistryObject<Block> LICOROOT_CRATE = registerBlock("licoroot_crate",
-            () -> new Block(BlockBehaviour.
-                    Properties.of().mapColor(MapColor.COLOR_MAGENTA).strength(0.25f, 10).sound(ACSoundTypes.HARD_CANDY).requiresCorrectToolForDrops()));
+            () -> new BiomeCrateBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_MAGENTA)
+                    .strength(0.25f, 10).sound(ACSoundTypes.HARD_CANDY), "gameplay/licoroot_crate"));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
