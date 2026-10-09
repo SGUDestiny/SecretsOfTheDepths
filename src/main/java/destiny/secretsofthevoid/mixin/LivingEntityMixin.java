@@ -23,7 +23,7 @@ public abstract class LivingEntityMixin
 //        LivingEntity living = ((LivingEntity) (Object) this);
 //        if(living instanceof Player player)
 //        {
-//            Optional<DivingCapability> capability = player.getCapability(CapabilitiesInit.DIVING).resolve();
+//            Optional<DivingCapability> capability = player.getCapability(CapabilityRegistry.DIVING).resolve();
 //            if (capability.isPresent() && !capability.get().getEquipmentFlippers(player, null).isEmpty())
 //                d0 = 0D;
 //        }

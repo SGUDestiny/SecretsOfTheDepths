@@ -1,0 +1,7 @@
+{
+	"parent": "alexscaves:block/uranium_rod",
+	"textures": {
+		"0": "secretsofthevoid:block/gamma_rod",
+		"particle": "secretsofthevoid:block/gamma_rod"
+	}
+}

@@ -1,7 +1,7 @@
 package destiny.secretsofthevoid.server.network;
 
 import destiny.secretsofthevoid.client.gui.GUIAncientAlphabet;
-import destiny.secretsofthevoid.server.init.CapabilitiesInit;
+import destiny.secretsofthevoid.server.registry.CapabilityRegistry;
 import destiny.secretsofthevoid.server.network.packets.OpenGUIAlphabetPacket;
 import destiny.secretsofthevoid.server.network.packets.UpdateDivingPacket;
 import net.minecraft.client.Minecraft;
@@ -14,7 +14,7 @@ public class ClientPacketHandler
 {
     public static void handleUpdateBreathingPacket(UpdateDivingPacket packet)
     {
-        getPlayer().ifPresent(player -> player.getCapability(CapabilitiesInit.DIVING).ifPresent(cap ->
+        getPlayer().ifPresent(player -> player.getCapability(CapabilityRegistry.DIVING).ifPresent(cap ->
         {
             cap.setOxygen(packet.oxygen);
             cap.setMaxOxygen(packet.maxOxygen);

@@ -1,18 +1,16 @@
 package destiny.secretsofthevoid.server.capabilities;
 
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.mojang.datafixers.util.Pair;
 import destiny.secretsofthevoid.client.network.ClientBoundParticlePacket;
 import destiny.secretsofthevoid.server.helper.IBacktank;
 import destiny.secretsofthevoid.server.helper.IFlippers;
 import destiny.secretsofthevoid.server.helper.IMask;
-import destiny.secretsofthevoid.server.init.NetworkInit;
-import destiny.secretsofthevoid.server.init.SoundInit;
+import destiny.secretsofthevoid.server.registry.NetworkRegistry;
+import destiny.secretsofthevoid.server.registry.SoundRegistry;
 import destiny.secretsofthevoid.server.network.packets.SoundPackets;
 import destiny.secretsofthevoid.server.network.packets.UpdateDivingPacket;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffects;
@@ -104,7 +102,7 @@ public class DivingCapability implements INBTSerializable<CompoundTag>
                     tank.setStoredOxygen(stack, tank.getStoredOxygen(stack) + (tank.getMaxOxygen(stack) / 60));
                 }
                 if (!getRefillSound()) {
-                    level.playSound(null, player.blockPosition().above(), SoundInit.BACKTANK_REFILL.get(), SoundSource.PLAYERS, 0.5f, 1f);
+                    level.playSound(null, player.blockPosition().above(), SoundRegistry.BACKTANK_REFILL.get(), SoundSource.PLAYERS, 0.5f, 1f);
                     setRefillSound(true);
                 }
             }
@@ -133,7 +131,7 @@ public class DivingCapability implements INBTSerializable<CompoundTag>
             tank.setStoredOxygen(stack, Math.max(0, tank.getStoredOxygen(stack) - (oxygenPerBreath * getMaskEfficiency())));
 
             if(!getEquipmentMask(player, null).isEmpty()) {
-                NetworkInit.sendTo((ServerPlayer) player, new SoundPackets.RebreatherInhale(player.blockPosition()));
+                NetworkRegistry.sendTo((ServerPlayer) player, new SoundPackets.RebreatherInhale(player.blockPosition()));
             }
 
             intakeTicker = 0;
@@ -142,7 +140,7 @@ public class DivingCapability implements INBTSerializable<CompoundTag>
 
         if (expelTicker > 60)
         {
-            level.playSound(null, player.blockPosition().above(), SoundInit.MASK_EXPEL.get(), SoundSource.PLAYERS, 0.5f, 1f);
+            level.playSound(null, player.blockPosition().above(), SoundRegistry.MASK_EXPEL.get(), SoundSource.PLAYERS, 0.5f, 1f);
 
             expelTicker = -1;
             bubbleTicker = 0;
@@ -160,7 +158,7 @@ public class DivingCapability implements INBTSerializable<CompoundTag>
 
             level.addParticle(ParticleTypes.BUBBLE, positionVec.x, positionVec.y, positionVec.z, 0, 0.1, 0);
 
-            NetworkInit.INSTANCE.send(
+            NetworkRegistry.INSTANCE.send(
                     PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(player.getX(), player.getY(), player.getZ(), 32.0, level.dimension())),
                     new ClientBoundParticlePacket(ForgeRegistries.PARTICLE_TYPES.getKey(ParticleTypes.BUBBLE), positionVec.x, positionVec.y, positionVec.z, 0, 0.1, 0, 1)
             );
@@ -179,7 +177,7 @@ public class DivingCapability implements INBTSerializable<CompoundTag>
     {
         if(level != null && !level.isClientSide() && player instanceof ServerPlayer serverPlayer)
         {
-            NetworkInit.sendTo(serverPlayer, new UpdateDivingPacket(getOxygen(), getMaxOxygen(), getMaskEfficiency()));
+            NetworkRegistry.sendTo(serverPlayer, new UpdateDivingPacket(getOxygen(), getMaxOxygen(), getMaskEfficiency()));
         }
     }
 

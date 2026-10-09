@@ -1,4 +1,4 @@
-package destiny.secretsofthevoid.server.init;
+package destiny.secretsofthevoid.server.registry;
 
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
 import destiny.secretsofthevoid.server.capabilities.DivingCapability;
@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = SecretsOfTheVoid.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class CapabilitiesInit {
+public class CapabilityRegistry {
     public static final Capability<DivingCapability> DIVING = CapabilityManager.get(new CapabilityToken<>() {});
 
     @SubscribeEvent

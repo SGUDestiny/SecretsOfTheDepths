@@ -6,7 +6,7 @@ import com.github.alexmodguy.alexscaves.server.CommonProxy;
 import com.google.common.collect.ImmutableList;
 import destiny.secretsofthevoid.client.render.SuspiciousBlockEntityRenderer;
 import destiny.secretsofthevoid.server.events.ClientEvents;
-import destiny.secretsofthevoid.server.init.BlockEntitiesInit;
+import destiny.secretsofthevoid.server.registry.BlockEntityRegistry;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.ModelEvent;
@@ -24,7 +24,7 @@ public class ClientProxy extends CommonProxy {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::bakeModels);
 
-        BlockEntityRenderers.register(BlockEntitiesInit.SUSPICIOUS_BLOCK.get(), SuspiciousBlockEntityRenderer::new);
+        BlockEntityRenderers.register(BlockEntityRegistry.SUSPICIOUS_BLOCK.get(), SuspiciousBlockEntityRenderer::new);
     }
 
     private void bakeModels(final ModelEvent.ModifyBakingResult e) {

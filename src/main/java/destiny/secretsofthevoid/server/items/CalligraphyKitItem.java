@@ -1,6 +1,6 @@
 package destiny.secretsofthevoid.server.items;
 
-import destiny.secretsofthevoid.server.init.ItemInit;
+import destiny.secretsofthevoid.server.registry.ItemRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -66,7 +66,7 @@ public class CalligraphyKitItem extends Item
 
             if(isEnchantingTable(player, level))
             {
-                player.setItemInHand(player.getUsedItemHand(), new ItemStack(ItemInit.ANCIENT_ALPHABET.get()));
+                player.setItemInHand(player.getUsedItemHand(), new ItemStack(ItemRegistry.ANCIENT_ALPHABET.get()));
                 level.playSound(player, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1, 1);
             }
         }

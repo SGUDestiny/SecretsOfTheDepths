@@ -1,7 +1,7 @@
 package destiny.secretsofthevoid.server.events;
 
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
-import destiny.secretsofthevoid.server.init.CapabilitiesInit;
+import destiny.secretsofthevoid.server.registry.CapabilityRegistry;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ComputeFovModifierEvent;
@@ -15,7 +15,7 @@ public class ClientEvents
     @SubscribeEvent
     public static void fovCalc(ComputeFovModifierEvent event)
     {
-        event.getPlayer().getCapability(CapabilitiesInit.DIVING).ifPresent(cap -> {
+        event.getPlayer().getCapability(CapabilityRegistry.DIVING).ifPresent(cap -> {
             Player player = event.getPlayer();
             if(!cap.getEquipmentMask(player, null).isEmpty() && player.getEyeInFluidType().canDrownIn(player)) {
                 event.setNewFovModifier(1.4F);

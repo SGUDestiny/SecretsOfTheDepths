@@ -1,4 +1,4 @@
-package destiny.secretsofthevoid.server.init;
+package destiny.secretsofthevoid.server.registry;
 
 import destiny.secretsofthevoid.client.network.ClientBoundParticlePacket;
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
@@ -12,13 +12,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-public class NetworkInit {
+public class NetworkRegistry {
     public static final String NET_VERSION = "1.0";
-    public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(SecretsOfTheVoid.MODID, "main"), () -> NET_VERSION, NET_VERSION::equals, NET_VERSION::equals);
+    public static final SimpleChannel INSTANCE = net.minecraftforge.network.NetworkRegistry.newSimpleChannel(new ResourceLocation(SecretsOfTheVoid.MODID, "main"), () -> NET_VERSION, NET_VERSION::equals, NET_VERSION::equals);
 
     public static int ID = 0;
 
@@ -36,7 +35,7 @@ public class NetworkInit {
     }
 
     public static void sendPacketToAll(Object message){
-        NetworkInit.INSTANCE.send(PacketDistributor.ALL.noArg(), message);
+        NetworkRegistry.INSTANCE.send(PacketDistributor.ALL.noArg(), message);
     }
 
     public static void sendPacketToDimension(ResourceKey<Level> level, Object mes){

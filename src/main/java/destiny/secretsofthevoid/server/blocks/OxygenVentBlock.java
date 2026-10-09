@@ -1,8 +1,8 @@
 package destiny.secretsofthevoid.server.blocks;
 
 import destiny.secretsofthevoid.server.blocks.blockentity.OxygenVentBlockEntity;
-import destiny.secretsofthevoid.server.init.BlockEntitiesInit;
-import destiny.secretsofthevoid.server.init.BlockInit;
+import destiny.secretsofthevoid.server.registry.BlockEntityRegistry;
+import destiny.secretsofthevoid.server.registry.BlockRegistry;
 import destiny.secretsofthevoid.server.items.tools.HadalSwordItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -59,7 +59,7 @@ public class OxygenVentBlock extends BaseEntityBlock {
         BlockState above = level.getBlockState(pos.above());
         BlockState below = level.getBlockState(pos.below());
 
-        return (above.is(BlockInit.PRESSURE_DRAIN.get()) && below.is(Blocks.MAGMA_BLOCK));
+        return (above.is(BlockRegistry.PRESSURE_DRAIN.get()) && below.is(Blocks.MAGMA_BLOCK));
     }
 
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource randomSource) {
@@ -69,7 +69,7 @@ public class OxygenVentBlock extends BaseEntityBlock {
     @javax.annotation.Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
         if (level.isClientSide) {
-            return state.getValue(SPAWNING_PARTICLES) ? createTickerHelper(entityType, BlockEntitiesInit.OXYGEN_VENT.get(), OxygenVentBlockEntity::particleTick) : null;
+            return state.getValue(SPAWNING_PARTICLES) ? createTickerHelper(entityType, BlockEntityRegistry.OXYGEN_VENT.get(), OxygenVentBlockEntity::particleTick) : null;
         } else {
             return null;
         }

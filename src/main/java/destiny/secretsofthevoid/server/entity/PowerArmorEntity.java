@@ -1,6 +1,6 @@
 package destiny.secretsofthevoid.server.entity;
 
-import destiny.secretsofthevoid.server.init.EntityInit;
+import destiny.secretsofthevoid.server.registry.EntityRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -18,7 +18,7 @@ public class PowerArmorEntity extends Entity implements GeoEntity
 
     public PowerArmorEntity(Level pLevel)
     {
-        super(EntityInit.POWER_ARMOR.get(), pLevel);
+        super(EntityRegistry.POWER_ARMOR.get(), pLevel);
     }
 
     @Override

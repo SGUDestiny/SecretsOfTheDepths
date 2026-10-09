@@ -1,5 +1,5 @@
 {
-  "parent": "alexscaves:block/partially_fullbright",
+  "parent": "secretsofthevoid:block/partially_fullbright",
   "render_type": "cutout",
   "textures": {
     "particle": "secretsofthevoid:block/abyssmarine_sigil_commoner",

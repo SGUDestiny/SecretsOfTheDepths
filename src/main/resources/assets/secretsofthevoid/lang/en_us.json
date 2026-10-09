@@ -10,6 +10,15 @@
     "block.secretsofthevoid.abyssmarine_sigil_knight": "Abyssmarine Knight Sigil",
     "block.secretsofthevoid.mussel_farm": "Mussel Farm",
 
+    "block.secretsofthevoid.hadal_crate": "Hadal Crate",
+    "block.secretsofthevoid.irradiated_crate": "Irradiated Crate",
+    "block.secretsofthevoid.eldritch_crate": "Eldritch Crate",
+    "block.secretsofthevoid.licoroot_crate": "Licoroot Crate",
+    "block.secretsofthevoid.polarized_crate": "Polarized Crate",
+    "block.secretsofthevoid.prehistoric_crate": "Prehistoric Crate",
+
+    "block.secretsofthevoid.gamma_rod": "Gamma Rod",
+
     "_items": "Items",
 
     "item.secretsofthevoid.abyssalith_fragment": "Abyssalith Fragment",

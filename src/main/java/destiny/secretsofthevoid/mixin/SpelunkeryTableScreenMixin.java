@@ -1,7 +1,7 @@
 package destiny.secretsofthevoid.mixin;
 
 import com.github.alexmodguy.alexscaves.client.gui.SpelunkeryTableScreen;
-import destiny.secretsofthevoid.server.init.ItemInit;
+import destiny.secretsofthevoid.server.registry.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +22,7 @@ public class SpelunkeryTableScreenMixin
 
     public void renderAlphabet(GuiGraphics guiGraphics)
     {
-        if(Minecraft.getInstance().player != null && Minecraft.getInstance().player.getInventory().hasAnyMatching(predicate -> predicate.is(ItemInit.ANCIENT_ALPHABET.get()))) {
+        if(Minecraft.getInstance().player != null && Minecraft.getInstance().player.getInventory().hasAnyMatching(predicate -> predicate.is(ItemRegistry.ANCIENT_ALPHABET.get()))) {
             int width = guiGraphics.guiWidth();
             int height = guiGraphics.guiHeight();
             int leftPos = (width - 208) / 2;

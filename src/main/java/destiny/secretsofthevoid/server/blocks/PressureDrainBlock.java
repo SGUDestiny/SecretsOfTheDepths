@@ -2,9 +2,9 @@ package destiny.secretsofthevoid.server.blocks;
 
 import com.mojang.datafixers.util.Pair;
 import destiny.secretsofthevoid.server.helper.IBacktank;
-import destiny.secretsofthevoid.server.init.BlockInit;
-import destiny.secretsofthevoid.server.init.CapabilitiesInit;
-import destiny.secretsofthevoid.server.init.SoundInit;
+import destiny.secretsofthevoid.server.registry.BlockRegistry;
+import destiny.secretsofthevoid.server.registry.CapabilityRegistry;
+import destiny.secretsofthevoid.server.registry.SoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -113,8 +113,8 @@ import java.util.List;
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (level.getBlockState(pos.below()).getBlock() == BlockInit.OXYGEN_VENT.get() && level.getBlockState(pos.below()).getValue(OxygenVentBlock.DRAINING_OXYGEN)) {
-            player.getCapability(CapabilitiesInit.DIVING).ifPresent(cap -> {
+        if (level.getBlockState(pos.below()).getBlock() == BlockRegistry.OXYGEN_VENT.get() && level.getBlockState(pos.below()).getValue(OxygenVentBlock.DRAINING_OXYGEN)) {
+            player.getCapability(CapabilityRegistry.DIVING).ifPresent(cap -> {
                 List<Pair<ItemStack, IBacktank>> sortedTanks = cap.getEquipmentBacktank(player, Comparator.comparing(airTank -> airTank.getSecond().getMaxOxygen(airTank.getFirst())));
                 for (Pair<ItemStack, IBacktank> airTank : sortedTanks) {
                     ItemStack stack = airTank.getFirst();
@@ -122,7 +122,7 @@ import java.util.List;
 
                     tank.setStoredOxygen(stack, tank.getMaxOxygen(stack));
 
-                    level.playLocalSound(pos, SoundInit.BACKTANK_REFILL.get(), SoundSource.BLOCKS, 1F, 1F, true);
+                    level.playLocalSound(pos, SoundRegistry.BACKTANK_REFILL.get(), SoundSource.BLOCKS, 1F, 1F, true);
                 }
             });
         }

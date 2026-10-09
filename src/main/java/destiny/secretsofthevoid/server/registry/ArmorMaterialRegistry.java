@@ -1,4 +1,4 @@
-package destiny.secretsofthevoid.server.init;
+package destiny.secretsofthevoid.server.registry;
 
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
@@ -16,7 +16,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.EnumMap;
 import java.util.function.Supplier;
 
-public enum ArmorMaterialsInit implements ArmorMaterial {
+public enum ArmorMaterialRegistry implements ArmorMaterial {
 
     //Armor
     ABYSSALITH("tools", 46, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266655_) -> {
@@ -25,7 +25,7 @@ public enum ArmorMaterialsInit implements ArmorMaterial {
         p_266655_.put(ArmorItem.Type.CHESTPLATE, 9);
         p_266655_.put(ArmorItem.Type.HELMET, 4);
     }), 18, SoundEvents.ARMOR_EQUIP_TURTLE, 5.0F, 0.3F, () -> {
-        return Ingredient.of(ItemInit.ABYSSALITH_CORE.get());
+        return Ingredient.of(ItemRegistry.ABYSSALITH_CORE.get());
     }),
 
     //Diving Gear
@@ -51,7 +51,7 @@ public enum ArmorMaterialsInit implements ArmorMaterial {
         p_266655_.put(ArmorItem.Type.CHESTPLATE, 5);
         p_266655_.put(ArmorItem.Type.HELMET, 2);
     }), 18, SoundEvents.ARMOR_EQUIP_GOLD, 2.5F, 0.15F, () -> {
-        return Ingredient.of(ItemInit.ABYSSALITH_CORE.get());
+        return Ingredient.of(ItemRegistry.ABYSSALITH_CORE.get());
     });
 
     public static final StringRepresentable.EnumCodec<ArmorMaterials> CODEC = StringRepresentable.fromEnum(ArmorMaterials::values);
@@ -70,7 +70,7 @@ public enum ArmorMaterialsInit implements ArmorMaterial {
     private final float knockbackResistance;
     private final LazyLoadedValue<Ingredient> repairIngredient;
 
-    private ArmorMaterialsInit(String pName, int pDurabilityMultiplier, EnumMap<ArmorItem.Type, Integer> pProtectionFunctionForType, int pEnchantmentValue, SoundEvent pSound, float pToughness, float pKnockbackResistance, Supplier<Ingredient> pRepairIngredient) {
+    private ArmorMaterialRegistry(String pName, int pDurabilityMultiplier, EnumMap<ArmorItem.Type, Integer> pProtectionFunctionForType, int pEnchantmentValue, SoundEvent pSound, float pToughness, float pKnockbackResistance, Supplier<Ingredient> pRepairIngredient) {
         this.name = pName;
         this.durabilityMultiplier = pDurabilityMultiplier;
         this.protectionFunctionForType = pProtectionFunctionForType;

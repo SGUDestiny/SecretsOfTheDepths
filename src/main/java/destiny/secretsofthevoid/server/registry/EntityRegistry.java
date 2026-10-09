@@ -1,4 +1,4 @@
-package destiny.secretsofthevoid.server.init;
+package destiny.secretsofthevoid.server.registry;
 
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
 import destiny.secretsofthevoid.server.entity.PowerArmorEntity;
@@ -10,7 +10,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class EntityInit
+public class EntityRegistry
 {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, SecretsOfTheVoid.MODID);
 

@@ -3,7 +3,7 @@ package destiny.secretsofthevoid.server.events;
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
 import destiny.secretsofthevoid.server.capabilities.DivingCapability;
 import destiny.secretsofthevoid.server.capabilities.GenericProvider;
-import destiny.secretsofthevoid.server.init.CapabilitiesInit;
+import destiny.secretsofthevoid.server.registry.CapabilityRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -19,13 +19,13 @@ public class Events {
     @SubscribeEvent
     public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player) {
-            event.addCapability(new ResourceLocation(SecretsOfTheVoid.MODID, "diving"), new GenericProvider<>(CapabilitiesInit.DIVING, new DivingCapability()));
+            event.addCapability(new ResourceLocation(SecretsOfTheVoid.MODID, "diving"), new GenericProvider<>(CapabilityRegistry.DIVING, new DivingCapability()));
         }
     }
 
     @SubscribeEvent
     public static void playerTick(TickEvent.PlayerTickEvent event) {
         if(event.phase == TickEvent.Phase.END && event.side.isServer() && event.player instanceof ServerPlayer player)
-            event.player.getCapability(CapabilitiesInit.DIVING).ifPresent(cap -> cap.tick(event.player.level(), player));
+            event.player.getCapability(CapabilityRegistry.DIVING).ifPresent(cap -> cap.tick(event.player.level(), player));
     }
 }

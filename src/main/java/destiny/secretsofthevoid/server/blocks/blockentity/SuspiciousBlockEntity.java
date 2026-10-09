@@ -1,6 +1,6 @@
 package destiny.secretsofthevoid.server.blocks.blockentity;
 
-import destiny.secretsofthevoid.server.init.BlockEntitiesInit;
+import destiny.secretsofthevoid.server.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
@@ -13,6 +13,6 @@ public class SuspiciousBlockEntity extends BrushableBlockEntity {
 
     @Override
     public BlockEntityType<?> getType() {
-        return BlockEntitiesInit.SUSPICIOUS_BLOCK.get();
+        return BlockEntityRegistry.SUSPICIOUS_BLOCK.get();
     }
 }

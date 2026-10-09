@@ -1,4 +1,4 @@
-package destiny.secretsofthevoid.server.init;
+package destiny.secretsofthevoid.server.registry;
 
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
 import net.minecraft.resources.ResourceLocation;
@@ -7,7 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class SoundInit {
+public class SoundRegistry {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, SecretsOfTheVoid.MODID);
 
     //Diving Mask

@@ -2,7 +2,7 @@ package destiny.secretsofthevoid.server.worldgen.feature;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.mojang.serialization.Codec;
-import destiny.secretsofthevoid.server.init.BlockInit;
+import destiny.secretsofthevoid.server.registry.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -38,7 +38,7 @@ public class OxygenVentFeature extends Feature<NoneFeatureConfiguration> {
         level.setBlock(ventBottom.west(), Blocks.DEEPSLATE.defaultBlockState(), 3);
         level.setBlock(ventBottom.below(), Blocks.DEEPSLATE.defaultBlockState(), 3);
         level.setBlock(ventBottom, Blocks.MAGMA_BLOCK.defaultBlockState(), 3);
-        level.setBlock(ventBottom.above(), BlockInit.OXYGEN_VENT.get().defaultBlockState(), 3);
+        level.setBlock(ventBottom.above(), BlockRegistry.OXYGEN_VENT.get().defaultBlockState(), 3);
 
         ventBottom = ventBottom.offset(0, 1, 0);
         level.setBlock(ventBottom.north(), Blocks.DEEPSLATE.defaultBlockState(), 3);

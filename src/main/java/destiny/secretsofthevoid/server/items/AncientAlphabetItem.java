@@ -1,6 +1,6 @@
 package destiny.secretsofthevoid.server.items;
 
-import destiny.secretsofthevoid.server.init.NetworkInit;
+import destiny.secretsofthevoid.server.registry.NetworkRegistry;
 import destiny.secretsofthevoid.server.network.packets.OpenGUIAlphabetPacket;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
@@ -37,7 +37,7 @@ public class AncientAlphabetItem extends Item
         if (player instanceof ServerPlayer serverPlayer) {
             CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, itemStackIn);
             serverPlayer.awardStat(Stats.ITEM_USED.get(this));
-            NetworkInit.sendTo(serverPlayer, new OpenGUIAlphabetPacket());
+            NetworkRegistry.sendTo(serverPlayer, new OpenGUIAlphabetPacket());
         }
 
         return new InteractionResultHolder<>(InteractionResult.PASS, itemStackIn);

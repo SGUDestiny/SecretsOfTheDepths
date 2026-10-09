@@ -2,7 +2,7 @@ package destiny.secretsofthevoid.mixin;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.NuclearExplosionEntity;
-import destiny.secretsofthevoid.server.init.ItemInit;
+import destiny.secretsofthevoid.server.registry.ItemRegistry;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -41,7 +41,7 @@ public abstract class NuclearExplosionEntityMixin extends Entity {
         for (ItemEntity itemEntity : this.level().getEntitiesOfClass(ItemEntity.class, killBox)) {
             if (itemEntity.getItem().getItem().equals(ACBlockRegistry.BLOCK_OF_URANIUM.get().asItem())) {
                 int count = itemEntity.getItem().getCount();
-                itemEntity.setItem(ItemInit.NUCLEAR_PASTA.get().getDefaultInstance());
+                itemEntity.setItem(ItemRegistry.NUCLEAR_PASTA.get().getDefaultInstance());
                 itemEntity.getItem().setCount(count);
             }
         }

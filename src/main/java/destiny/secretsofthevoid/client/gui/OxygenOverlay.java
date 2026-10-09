@@ -5,8 +5,8 @@ import com.mojang.datafixers.util.Pair;
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
 import destiny.secretsofthevoid.server.capabilities.DivingCapability;
 import destiny.secretsofthevoid.server.helper.IBacktank;
-import destiny.secretsofthevoid.server.init.CapabilitiesInit;
-import destiny.secretsofthevoid.server.init.ItemInit;
+import destiny.secretsofthevoid.server.registry.CapabilityRegistry;
+import destiny.secretsofthevoid.server.registry.ItemRegistry;
 import destiny.secretsofthevoid.server.network.ClientPacketHandler;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
@@ -50,21 +50,21 @@ public class OxygenOverlay {
         double oxygen =  0.0D;
         double maxOxygen = 0.0D;
         LocalPlayer player = ClientPacketHandler.getPlayer().orElse(null);
-        if(player != null && player.getCapability(CapabilitiesInit.DIVING).isPresent()) {
-            DivingCapability cap = player.getCapability(CapabilitiesInit.DIVING).orElse(null);
+        if(player != null && player.getCapability(CapabilityRegistry.DIVING).isPresent()) {
+            DivingCapability cap = player.getCapability(CapabilityRegistry.DIVING).orElse(null);
 
             List<Pair<ItemStack, IBacktank>> sortedTanks = cap.getEquipmentBacktank(player, Comparator.comparing(backtank -> backtank.getSecond().getMaxOxygen(backtank.getFirst())));
             for (Pair<ItemStack, IBacktank> backtank : sortedTanks) {
                 ItemStack stack = backtank.getFirst();
                 IBacktank tank = backtank.getSecond();
 
-                if (stack.is(ItemInit.PEARL_BACKTANK.get())) {
+                if (stack.is(ItemRegistry.PEARL_BACKTANK.get())) {
                     FULL = PEARL_FULL;
                     HALF = PEARL_HALF;
-                } else if (stack.is(ItemInit.NETHERITE_BACKTANK.get())) {
+                } else if (stack.is(ItemRegistry.NETHERITE_BACKTANK.get())) {
                     FULL = NETHERITE_FULL;
                     HALF = NETHERITE_HALF;
-                } else if (stack.is(ItemInit.ABYSSALITH_BACKTANK.get())) {
+                } else if (stack.is(ItemRegistry.ABYSSALITH_BACKTANK.get())) {
                     FULL = ABYSSALITH_FULL;
                     HALF = ABYSSALITH_HALF;
                 }

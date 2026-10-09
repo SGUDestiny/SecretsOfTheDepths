@@ -3,7 +3,7 @@ package destiny.secretsofthevoid.server.blocks.blockentity;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import destiny.secretsofthevoid.server.blocks.OxygenVentBlock;
-import destiny.secretsofthevoid.server.init.BlockEntitiesInit;
+import destiny.secretsofthevoid.server.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -18,7 +18,7 @@ public class OxygenVentBlockEntity extends BlockEntity {
 
     private int soundTime = 0;
     public OxygenVentBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntitiesInit.OXYGEN_VENT.get(), pos, state);
+        super(BlockEntityRegistry.OXYGEN_VENT.get(), pos, state);
     }
 
     public static void particleTick(Level level, BlockPos pos, BlockState state, OxygenVentBlockEntity blockEntity) {

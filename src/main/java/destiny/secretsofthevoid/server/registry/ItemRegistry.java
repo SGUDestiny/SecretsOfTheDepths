@@ -1,4 +1,4 @@
-package destiny.secretsofthevoid.server.init;
+package destiny.secretsofthevoid.server.registry;
 
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.item.RadioactiveItem;
@@ -18,7 +18,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 
-public class ItemInit {
+public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, SecretsOfTheVoid.MODID);
 
     public static final Rarity RARITY_ABYSSAL = Rarity.create("secretsofthevoid:abyssal", ChatFormatting.BLUE);
@@ -63,85 +63,85 @@ public class ItemInit {
 
     //Discs
     public static final RegistryObject<Item> DISC_HADAL = ITEMS.register("disc_hadal",
-            () -> new RecordItem(0, SoundInit.DISK_HADAL,
+            () -> new RecordItem(0, SoundRegistry.DISK_HADAL,
                     new Item.Properties().rarity(Rarity.EPIC).stacksTo(1), 7620));
     public static final RegistryObject<Item> DISC_HADAL_AMBIENT = ITEMS.register("disc_hadal_ambient",
-            () -> new RecordItem(0, SoundInit.DISK_HADAL_AMBIENT,
+            () -> new RecordItem(0, SoundRegistry.DISK_HADAL_AMBIENT,
                     new Item.Properties().rarity(Rarity.EPIC).stacksTo(1), 7600));
     public static final RegistryObject<Item> DISC_FRAGMENT_HADAL = ITEMS.register("disc_fragment_hadal",
             () -> new DiscFragmentItem(new Item.Properties().rarity(Rarity.RARE)));
 
     //Diving Gear
     public static final RegistryObject<PearlMaskItem> PEARL_MASK = ITEMS.register("pearl_mask",
-            () -> new PearlMaskItem(ArmorMaterialsInit.PEARL_DIVING_GEAR, ArmorItem.Type.HELMET,
+            () -> new PearlMaskItem(ArmorMaterialRegistry.PEARL_DIVING_GEAR, ArmorItem.Type.HELMET,
                     new Item.Properties().stacksTo(1)));
     public static final RegistryObject<PearlBacktankItem> PEARL_BACKTANK = ITEMS.register("pearl_backtank",
-            () -> new PearlBacktankItem(ArmorMaterialsInit.PEARL_DIVING_GEAR, ArmorItem.Type.CHESTPLATE,
+            () -> new PearlBacktankItem(ArmorMaterialRegistry.PEARL_DIVING_GEAR, ArmorItem.Type.CHESTPLATE,
                     new Item.Properties().stacksTo(1)));
     public static final RegistryObject<PearlLegwearItem> PEARL_LEGWEAR = ITEMS.register("pearl_legwear",
-            () -> new PearlLegwearItem(ArmorMaterialsInit.PEARL_DIVING_GEAR, ArmorItem.Type.LEGGINGS,
+            () -> new PearlLegwearItem(ArmorMaterialRegistry.PEARL_DIVING_GEAR, ArmorItem.Type.LEGGINGS,
                     new Item.Properties().stacksTo(1)));
     public static final RegistryObject<PearlFlippersItem> PEARL_FLIPPERS = ITEMS.register("pearl_flippers",
-            () -> new PearlFlippersItem(ArmorMaterialsInit.PEARL_DIVING_GEAR, ArmorItem.Type.BOOTS,
+            () -> new PearlFlippersItem(ArmorMaterialRegistry.PEARL_DIVING_GEAR, ArmorItem.Type.BOOTS,
                     new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<NetheriteMaskItem> NETHERITE_MASK = ITEMS.register("netherite_mask",
-            () -> new NetheriteMaskItem(ArmorMaterialsInit.NETHERITE_DIVING_GEAR, ArmorItem.Type.HELMET,
+            () -> new NetheriteMaskItem(ArmorMaterialRegistry.NETHERITE_DIVING_GEAR, ArmorItem.Type.HELMET,
                     new Item.Properties().stacksTo(1).fireResistant()));
     public static final RegistryObject<NetheriteBacktankItem> NETHERITE_BACKTANK = ITEMS.register("netherite_backtank",
-            () -> new NetheriteBacktankItem(ArmorMaterialsInit.NETHERITE_DIVING_GEAR, ArmorItem.Type.CHESTPLATE,
+            () -> new NetheriteBacktankItem(ArmorMaterialRegistry.NETHERITE_DIVING_GEAR, ArmorItem.Type.CHESTPLATE,
                     new Item.Properties().stacksTo(1).fireResistant()));
     public static final RegistryObject<NetheriteLegwearItem> NETHERITE_LEGWEAR = ITEMS.register("netherite_legwear",
-            () -> new NetheriteLegwearItem(ArmorMaterialsInit.NETHERITE_DIVING_GEAR, ArmorItem.Type.LEGGINGS,
+            () -> new NetheriteLegwearItem(ArmorMaterialRegistry.NETHERITE_DIVING_GEAR, ArmorItem.Type.LEGGINGS,
                     new Item.Properties().stacksTo(1).fireResistant()));
     public static final RegistryObject<NetheriteFlippersItem> NETHERITE_FLIPPERS = ITEMS.register("netherite_flippers",
-            () -> new NetheriteFlippersItem(ArmorMaterialsInit.NETHERITE_DIVING_GEAR, ArmorItem.Type.BOOTS,
+            () -> new NetheriteFlippersItem(ArmorMaterialRegistry.NETHERITE_DIVING_GEAR, ArmorItem.Type.BOOTS,
                     new Item.Properties().stacksTo(1).fireResistant()));
 
     public static final RegistryObject<AbyssalithMaskItem> ABYSSALITH_MASK = ITEMS.register("abyssalith_mask",
-            () -> new AbyssalithMaskItem(ArmorMaterialsInit.ABYSSALITH_DIVING_GEAR, ArmorItem.Type.HELMET,
+            () -> new AbyssalithMaskItem(ArmorMaterialRegistry.ABYSSALITH_DIVING_GEAR, ArmorItem.Type.HELMET,
                     new Item.Properties().stacksTo(1).fireResistant().rarity(Rarity.RARE)));
     public static final RegistryObject<AbyssalithBacktankItem> ABYSSALITH_BACKTANK = ITEMS.register("abyssalith_backtank",
-            () -> new AbyssalithBacktankItem(ArmorMaterialsInit.ABYSSALITH_DIVING_GEAR, ArmorItem.Type.CHESTPLATE,
+            () -> new AbyssalithBacktankItem(ArmorMaterialRegistry.ABYSSALITH_DIVING_GEAR, ArmorItem.Type.CHESTPLATE,
                     new Item.Properties().stacksTo(1).fireResistant().rarity(Rarity.RARE)));
     public static final RegistryObject<AbyssalithLegwearItem> ABYSSALITH_LEGWEAR = ITEMS.register("abyssalith_legwear",
-            () -> new AbyssalithLegwearItem(ArmorMaterialsInit.ABYSSALITH_DIVING_GEAR, ArmorItem.Type.LEGGINGS,
+            () -> new AbyssalithLegwearItem(ArmorMaterialRegistry.ABYSSALITH_DIVING_GEAR, ArmorItem.Type.LEGGINGS,
                     new Item.Properties().stacksTo(1).fireResistant().rarity(Rarity.RARE)));
     public static final RegistryObject<AbyssalithFlippersItem> ABYSSALITH_FLIPPERS = ITEMS.register("abyssalith_flippers",
-            () -> new AbyssalithFlippersItem(ArmorMaterialsInit.ABYSSALITH_DIVING_GEAR, ArmorItem.Type.BOOTS,
+            () -> new AbyssalithFlippersItem(ArmorMaterialRegistry.ABYSSALITH_DIVING_GEAR, ArmorItem.Type.BOOTS,
                     new Item.Properties().stacksTo(1).fireResistant().rarity(Rarity.RARE)));
 
     //Armor
     public static final RegistryObject<Item> SCORIA_HELMET = ITEMS.register("scoria_helmet",
-            () -> new ArmorItem(ArmorMaterialsInit.ABYSSALITH, ArmorItem.Type.HELMET,
+            () -> new ArmorItem(ArmorMaterialRegistry.ABYSSALITH, ArmorItem.Type.HELMET,
                     new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
     public static final RegistryObject<Item> SCORIA_CHESTPLATE = ITEMS.register("scoria_chestplate",
-            () -> new ArmorItem(ArmorMaterialsInit.ABYSSALITH, ArmorItem.Type.CHESTPLATE,
+            () -> new ArmorItem(ArmorMaterialRegistry.ABYSSALITH, ArmorItem.Type.CHESTPLATE,
                     new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
     public static final RegistryObject<Item> SCORIA_LEGGINGS = ITEMS.register("scoria_leggings",
-            () -> new ArmorItem(ArmorMaterialsInit.ABYSSALITH, ArmorItem.Type.LEGGINGS,
+            () -> new ArmorItem(ArmorMaterialRegistry.ABYSSALITH, ArmorItem.Type.LEGGINGS,
                     new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
     public static final RegistryObject<Item> SCORIA_BOOTS = ITEMS.register("scoria_boots",
-            () -> new ArmorItem(ArmorMaterialsInit.ABYSSALITH, ArmorItem.Type.BOOTS,
+            () -> new ArmorItem(ArmorMaterialRegistry.ABYSSALITH, ArmorItem.Type.BOOTS,
                     new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
 
     //Tools
     public static final RegistryObject<HadalSwordItem> HADAL_SWORD = ITEMS.register("hadal_sword",
-            () -> new HadalSwordItem(ToolTierInit.HADAL, 4, -1.9f,
+            () -> new HadalSwordItem(ToolTierRegistry.HADAL, 4, -1.9f,
                     new Item.Properties().fireResistant().rarity(Rarity.RARE)));
     public static final RegistryObject<HadalPickaxeItem> HADAL_PICKAXE = ITEMS.register("hadal_pickaxe",
-            () -> new HadalPickaxeItem(ToolTierInit.HADAL, 2, -2.3f,
+            () -> new HadalPickaxeItem(ToolTierRegistry.HADAL, 2, -2.3f,
                     new Item.Properties().fireResistant().rarity(Rarity.RARE)));
     public static final RegistryObject<HadalAxeItem> HADAL_AXE = ITEMS.register("hadal_axe",
-            () -> new HadalAxeItem(ToolTierInit.HADAL, 6.0f, -2.5f,
+            () -> new HadalAxeItem(ToolTierRegistry.HADAL, 6.0f, -2.5f,
                     new Item.Properties().fireResistant().rarity(Rarity.RARE)));
     public static final RegistryObject<HadalHoeItem> HADAL_HOE = ITEMS.register("hadal_hoe",
-            () -> new HadalHoeItem(ToolTierInit.HADAL, 0, 1f,
+            () -> new HadalHoeItem(ToolTierRegistry.HADAL, 0, 1f,
                     new Item.Properties().fireResistant().rarity(Rarity.RARE)));
 
     //Special tools
     public static final RegistryObject<TrenchbleederItem> TRENCHBLEEDER = ITEMS.register("trenchbleeder",
-            () -> new TrenchbleederItem(ToolTierInit.TRENCHBLEEDER, 2.5f, -2.0f,
+            () -> new TrenchbleederItem(ToolTierRegistry.TRENCHBLEEDER, 2.5f, -2.0f,
                     new Item.Properties().fireResistant().rarity(RARITY_ABYSSAL)));
 
     //Misc Items

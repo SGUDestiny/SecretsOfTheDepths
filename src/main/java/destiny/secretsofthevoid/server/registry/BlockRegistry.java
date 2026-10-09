@@ -1,4 +1,4 @@
-package destiny.secretsofthevoid.server.init;
+package destiny.secretsofthevoid.server.registry;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACSoundTypes;
@@ -10,7 +10,6 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BrushableBlock;
-import net.minecraft.world.level.block.SeaPickleBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -21,7 +20,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-public class BlockInit {
+public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SecretsOfTheVoid.MODID);
 
     //Natural Blocks
@@ -77,6 +76,8 @@ public class BlockInit {
             () -> new BiomeCrateBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_MAGENTA)
                     .strength(0.25f, 10).sound(ACSoundTypes.HARD_CANDY), "gameplay/licoroot_crate"));
 
+    public static final RegistryObject<Block> GAMMA_ROD = registerBlock("gamma_rod", GammaRodBlock::new);
+
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
@@ -84,6 +85,6 @@ public class BlockInit {
     }
 
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, Supplier<T> block) {
-        return ItemInit.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        return ItemRegistry.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 }

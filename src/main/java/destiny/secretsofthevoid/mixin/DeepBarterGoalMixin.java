@@ -6,7 +6,7 @@ import com.github.alexmodguy.alexscaves.server.entity.living.DeepOneBaseEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.DeepOneEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.DeepOneKnightEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.DeepOneMageEntity;
-import destiny.secretsofthevoid.server.init.BlockInit;
+import destiny.secretsofthevoid.server.registry.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,7 +30,7 @@ public class DeepBarterGoalMixin
         if (mob.level() != null && mob.level().getBlockEntity(mob.getLastAltarPos()) instanceof AbyssalAltarBlockEntity altar)
         {
             BlockState sigil = mob.level().getBlockState(altar.getBlockPos().below());
-            if(sigil.is(BlockInit.ABYSSMARINE_SIGIL_COMMONER.get()))
+            if(sigil.is(BlockRegistry.ABYSSMARINE_SIGIL_COMMONER.get()))
             {
                 if(mob instanceof DeepOneEntity)
                 {
@@ -40,7 +40,7 @@ public class DeepBarterGoalMixin
                     cir.setReturnValue(false);
                 }
             }
-            else if(sigil.is(BlockInit.ABYSSMARINE_SIGIL_KNIGHT.get()))
+            else if(sigil.is(BlockRegistry.ABYSSMARINE_SIGIL_KNIGHT.get()))
             {
                 if(mob instanceof DeepOneKnightEntity)
                 {
@@ -50,7 +50,7 @@ public class DeepBarterGoalMixin
                     cir.setReturnValue(false);
                 }
             }
-            else if(sigil.is(BlockInit.ABYSSMARINE_SIGIL_MAGE.get()))
+            else if(sigil.is(BlockRegistry.ABYSSMARINE_SIGIL_MAGE.get()))
             {
                 if(mob instanceof DeepOneMageEntity)
                 {

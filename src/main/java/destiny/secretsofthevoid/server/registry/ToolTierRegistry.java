@@ -1,10 +1,10 @@
-package destiny.secretsofthevoid.server.init;
+package destiny.secretsofthevoid.server.registry;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public enum ToolTierInit implements Tier {
+public enum ToolTierRegistry implements Tier {
     //Vanilla tiers for reference
     //WOOD(0, 59, 2.0F, 0.0F, 15, () -> {
     //   return Ingredient.of(ItemTags.PLANKS);
@@ -26,16 +26,16 @@ public enum ToolTierInit implements Tier {
     //});
 
     //Tool tiers
-    HADAL(5, 3800, 13.0F, 5F, 18, ItemInit.ABYSSALITH_CORE.get()),
+    HADAL(5, 3800, 13.0F, 5F, 18, ItemRegistry.ABYSSALITH_CORE.get()),
 
     //Special item tiers
-    TRENCHBLEEDER(5, 4500, 13.0F, 10F, 25, ItemInit.ABYSSALITH_CORE.get());
+    TRENCHBLEEDER(5, 4500, 13.0F, 10F, 25, ItemRegistry.ABYSSALITH_CORE.get());
 
     private float attackDamage, efficiency;
     private int durability, harvestLevel, enchantability;
     private Item repairMaterial;
 
-    private ToolTierInit(int harvestLevel, int durability, float efficiency, float attackDamage, int enchantability, Item repairMaterial) {
+    private ToolTierRegistry(int harvestLevel, int durability, float efficiency, float attackDamage, int enchantability, Item repairMaterial) {
         this.harvestLevel = harvestLevel;
         this.durability = durability;
         this.efficiency = efficiency;

@@ -1,6 +1,6 @@
 package destiny.secretsofthevoid.server.items.block_item;
 
-import destiny.secretsofthevoid.server.init.BlockInit;
+import destiny.secretsofthevoid.server.registry.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class MusselFarmBlockItem extends BlockItem {
     public MusselFarmBlockItem(Properties pProperties) {
-        super(BlockInit.MUSSEL_FARM.get(), pProperties);
+        super(BlockRegistry.MUSSEL_FARM.get(), pProperties);
     }
 
     @Override
