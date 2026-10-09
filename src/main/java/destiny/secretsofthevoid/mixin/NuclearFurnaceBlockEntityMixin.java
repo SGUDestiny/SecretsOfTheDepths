@@ -2,13 +2,22 @@ package destiny.secretsofthevoid.mixin;
 
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearFurnaceBlockEntity;
 import destiny.secretsofthevoid.server.ServerConfig;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(NuclearFurnaceBlockEntity.class)
-public class NuclearFurnaceBlockEntityMixin {
+public abstract class NuclearFurnaceBlockEntityMixin {
+    @Shadow
+    protected NonNullList<ItemStack> items;
+
+    @Shadow protected abstract void syncWithClient();
+
     @Inject(method = "getMaxFissionTime", at = @At("HEAD"), cancellable = true, remap = false)
     private static void getMaxFissionTime(CallbackInfoReturnable<Integer> cir) {
         if (ServerConfig.nuclearFurnaceDebuff) return;
@@ -21,5 +30,20 @@ public class NuclearFurnaceBlockEntityMixin {
         if (ServerConfig.nuclearFurnaceDebuff) return;
 
         cir.setReturnValue(0.2f);
+    }
+
+    /**
+     * @author
+     * @reason
+     */
+    @Overwrite
+    public void setItem(int slot, ItemStack itemStack) {
+        this.items.set(slot, itemStack);
+        if (itemStack.getCount() > ((NuclearFurnaceBlockEntity)(Object)this).getMaxStackSize()) {
+            itemStack.setCount(((NuclearFurnaceBlockEntity)(Object)this).getMaxStackSize());
+        }
+
+        ((NuclearFurnaceBlockEntity)(Object)this).setChanged();
+        syncWithClient();
     }
 }
