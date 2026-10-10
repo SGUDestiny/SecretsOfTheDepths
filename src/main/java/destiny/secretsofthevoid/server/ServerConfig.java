@@ -11,8 +11,8 @@ public class ServerConfig {
 
     private static final ForgeConfigSpec.BooleanValue DISABLE_NUCLEAR_FURNACE_DEBUFF = BUILDER
             .comment("Disable Nuclear Furnace smelting capacity being halved when Alex's Caves blasting only config option is set to true?")
-            .comment("Default: false")
-            .define("disable_nuclear_furnace_debuff", false);
+            .comment("Default: true")
+            .define("disable_nuclear_furnace_debuff", true);
 
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
