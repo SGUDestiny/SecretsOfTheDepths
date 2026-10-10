@@ -9,19 +9,19 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 public class ServerConfig {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
-    private static final ForgeConfigSpec.BooleanValue NUCLEAR_FURNACE_DEBUFF = BUILDER
-            .comment("Should Nuclear Furnace's smelting capacity be halved when Alex's Caves smelt anything config option is set to true?")
+    private static final ForgeConfigSpec.BooleanValue DISABLE_NUCLEAR_FURNACE_DEBUFF = BUILDER
+            .comment("Disable Nuclear Furnace smelting capacity being halved when Alex's Caves blasting only config option is set to true?")
             .comment("Default: false")
-            .define("nuclear_furnace_debuff", false);
+            .define("disable_nuclear_furnace_debuff", false);
 
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
-    public static boolean nuclearFurnaceDebuff;
+    public static boolean disableNuclearFurnaceDebuff;
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
         if (event.getConfig().getSpec() != SPEC) return;
 
-        nuclearFurnaceDebuff = NUCLEAR_FURNACE_DEBUFF.get();
+        disableNuclearFurnaceDebuff = DISABLE_NUCLEAR_FURNACE_DEBUFF.get();
     }
 }

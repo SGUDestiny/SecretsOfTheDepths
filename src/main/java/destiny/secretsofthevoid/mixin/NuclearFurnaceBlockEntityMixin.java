@@ -1,5 +1,6 @@
 package destiny.secretsofthevoid.mixin;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearFurnaceBlockEntity;
 import destiny.secretsofthevoid.server.ServerConfig;
 import destiny.secretsofthevoid.server.network.packets.UpdateFurnaceItemPacket;
@@ -23,14 +24,14 @@ public abstract class NuclearFurnaceBlockEntityMixin {
 
     @Inject(method = "getMaxFissionTime", at = @At("HEAD"), cancellable = true, remap = false)
     private static void getMaxFissionTime(CallbackInfoReturnable<Integer> cir) {
-        if (ServerConfig.nuclearFurnaceDebuff) return;
+        if (!ServerConfig.disableNuclearFurnaceDebuff || AlexsCaves.COMMON_CONFIG.nuclearFurnaceBlastingOnly.get()) return;
 
         cir.setReturnValue((int)Math.ceil(6400 * 0.411));
     }
 
     @Inject(method = "getSpeedReduction", at = @At("HEAD"), cancellable = true, remap = false)
     private static void getSpeedReduction(CallbackInfoReturnable<Float> cir) {
-        if (ServerConfig.nuclearFurnaceDebuff) return;
+        if (!ServerConfig.disableNuclearFurnaceDebuff || AlexsCaves.COMMON_CONFIG.nuclearFurnaceBlastingOnly.get()) return;
 
         cir.setReturnValue(0.2f);
     }
