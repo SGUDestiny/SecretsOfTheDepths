@@ -5,6 +5,7 @@ import com.github.alexmodguy.alexscaves.client.render.blockentity.NuclearFurnace
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearFurnaceBlockEntity;
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
 import destiny.secretsofthevoid.server.registry.BlockRegistry;
+import destiny.secretsofthevoid.server.util.IGammaRodHandleFurnace;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
@@ -52,7 +53,8 @@ public class NuclearFurnaceBlockEntityRendererMixin {
         if (!furnace.isUndergoingFission() && furnace.getCriticality() <= 0) {
             return glow ? ACRenderTypes.getEyesAlphaEnabled(OFF_TEXTURE_GLOW) : RenderType.entityCutoutNoCull(OFF_TEXTURE);
         } else if (furnace.getCriticality() == 1) {
-            if (furnace.getItem(1).getItem() == BlockRegistry.GAMMA_ROD.get().asItem()) {
+            if (((IGammaRodHandleFurnace) furnace).isFissioningGammaRod())
+            {
                 return glow ? ACRenderTypes.getEyesAlphaEnabled(SUBCRITICAL_TEXTURE_GLOW_GAMMA) : RenderType.entityCutoutNoCull(SUBCRITICAL_TEXTURE_GAMMA);
             }
 
@@ -62,7 +64,7 @@ public class NuclearFurnaceBlockEntityRendererMixin {
         } else if (furnace.getCriticality() >= 3) {
             return glow ? ACRenderTypes.getEyesAlphaEnabled(SUPERCRITICAL_TEXTURE_GLOW) : RenderType.entityCutoutNoCull(SUPERCRITICAL_TEXTURE);
         } else {
-            if (furnace.getItem(1).getItem() == BlockRegistry.GAMMA_ROD.get().asItem()) {
+            if (((IGammaRodHandleFurnace) furnace).isFissioningGammaRod()) {
                 return glow ? ACRenderTypes.getEyesAlphaEnabled(ON_TEXTURE_GLOW_GAMMA) : RenderType.entityCutoutNoCull(ON_TEXTURE_GAMMA);
             }
 
