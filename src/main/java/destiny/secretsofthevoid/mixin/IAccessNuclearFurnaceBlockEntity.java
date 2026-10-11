@@ -16,49 +16,49 @@ import java.util.Optional;
 @Mixin(NuclearFurnaceBlockEntity.class)
 public interface IAccessNuclearFurnaceBlockEntity
 {
-	@Invoker("spreadFire")
+	@Invoker(value = "spreadFire", remap = false)
 	void firespread(Level level, int range);
-	@Invoker("canFitInResultSlot")
+	@Invoker(value = "canFitInResultSlot", remap = false)
 	boolean canFit(ItemStack putIn, int resultSlot);
-	@Invoker("resetCookTime")
+	@Invoker(value = "resetCookTime", remap = false)
 	void resetCookingTime();
-	@Invoker("getRecipeFor")
+	@Invoker(value = "getRecipeFor", remap = false)
 	Optional<? extends AbstractCookingRecipe> getCookingRecipe(ItemStack stack);
-	@Invoker("syncWithClient")
+	@Invoker(value = "syncWithClient", remap = false)
 	void syncClientWith();
 
-	@Accessor("items")
+	@Accessor(value = "items", remap = false)
 	NonNullList<ItemStack> getItems();
-	@Accessor("currentRecipe")
+	@Accessor(value = "currentRecipe", remap = false)
 	AbstractCookingRecipe getCurrentRecipe();
-	@Accessor("currentRecipe")
+	@Accessor(value = "currentRecipe", remap = false)
 	void setCurrentRecipe(AbstractCookingRecipe recipe);
-	@Accessor("lastInteractedWithPlayer")
+	@Accessor(value = "lastInteractedWithPlayer", remap = false)
 	Player getLastPlayer();
 
 
-	@Accessor("cookTime")
+	@Accessor(value = "cookTime", remap = false)
 	int getCookTime();
-	@Accessor("cookTime")
+	@Accessor(value = "cookTime", remap = false)
 	void setCookTime(int cookTime);
 
-	@Accessor("maxCookTime")
+	@Accessor(value = "maxCookTime", remap = false)
 	int getMaxCookTime();
-	@Accessor("maxCookTime")
+	@Accessor(value = "maxCookTime", remap = false)
 	void setMaxCookTime(int maxCookTime);
 
-	@Accessor("fissionTime")
+	@Accessor(value = "fissionTime", remap = false)
 	int getFissionTime();
-	@Accessor("fissionTime")
+	@Accessor(value = "fissionTime", remap = false)
 	void setFissionTime(int fissionTime);
 
-	@Accessor("currentWaste")
+	@Accessor(value = "currentWaste", remap = false)
 	int getCurrentWaste();
-	@Accessor("currentWaste")
+	@Accessor(value = "currentWaste", remap = false)
 	void setCurrentWaste(int currentWaste);
 
-	@Accessor("barrelTime")
+	@Accessor(value = "barrelTime", remap = false)
 	int getBarrelTime();
-	@Accessor("barrelTime")
+	@Accessor(value = "barrelTime", remap = false)
 	void setBarrelTime(int barrelTime);
 }

@@ -3,11 +3,11 @@ package destiny.secretsofthevoid.mixin;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.NuclearFurnaceBlockRenderer;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearFurnaceBlockEntity;
-import com.github.alexmodguy.alexscaves.server.inventory.NuclearFurnaceMenu;
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
 import destiny.secretsofthevoid.server.util.IGammaRodHandleFurnace;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;
@@ -58,7 +58,10 @@ public class NuclearFurnaceBlockEntityRendererMixin {
      */
     @Overwrite(remap = false)
     private RenderType getRenderTypeFor(NuclearFurnaceBlockEntity furnace, boolean glow) {
-        if (furnace.isUndergoingFission() && ((IAccessNuclearFurnaceBlockEntity) furnace).getItems().get(0).isEmpty()) {
+        IGammaRodHandleFurnace gammaRodHandler = ((IGammaRodHandleFurnace) furnace);
+        IAccessNuclearFurnaceBlockEntity furnaceHandler = ((IAccessNuclearFurnaceBlockEntity) furnace);
+
+        if (furnaceHandler.getMaxCookTime() == 0 && gammaRodHandler.isFissioningGammaRod()) {
             return glow ? ACRenderTypes.getEyesAlphaEnabled(OFF_TEXTURE_GLOW) : RenderType.entityCutoutNoCull(OFF_TEXTURE);
         }
 

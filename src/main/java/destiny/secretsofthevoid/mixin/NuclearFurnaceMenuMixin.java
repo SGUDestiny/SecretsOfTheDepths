@@ -34,7 +34,7 @@ public class NuclearFurnaceMenuMixin implements IGammaRodHandleFurnace
 	public void dontStaticTime(CallbackInfoReturnable<Float> cir)
 	{
 		boolean isGamma = isFissioningGammaRod();
-		cir.setReturnValue(data.get(2)/ (isGamma ? 6400 * 0.4f : 6400 * 0.2f));
+		cir.setReturnValue(data.get(2) / (isGamma ? 6400 * 0.6f : 6400 * 0.2f));
 	}
 
 	@Inject(method = "stillValid(Lnet/minecraft/world/entity/player/Player;)Z",

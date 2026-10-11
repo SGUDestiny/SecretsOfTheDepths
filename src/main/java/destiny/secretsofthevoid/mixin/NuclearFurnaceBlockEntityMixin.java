@@ -95,8 +95,7 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
             level.addAlwaysVisibleParticle(ParticleTypes.LARGE_SMOKE, true, vec3.x, vec3.y, vec3.z,
 					(level.random.nextFloat() - 0.5F) * 0.1F, level.random.nextFloat() * 0.1F, (level.random.nextFloat() - 0.5F) * 0.1F);
         }
-        else if ((entity.isUndergoingFission() && level.random.nextFloat() < (float) entity.getCriticality() * 0.35F + 0.15F && !((IGammaRodHandleFurnace) entity).isFissioningGammaRod())
-                || (entity.isUndergoingFission() && level.random.nextFloat() < (float) entity.getCriticality() * 0.35F + 0.15F && ((IGammaRodHandleFurnace) entity).isFissioningGammaRod() && !((IAccessNuclearFurnaceBlockEntity) entity).getItems().get(0).isEmpty()))
+        else if ((isSmeltingSided(entity) && level.random.nextFloat() < (float) entity.getCriticality() * 0.35F + 0.15F))
         {
             Vec3 vec3 = entity.getExhaustPos();
             ParticleOptions particleOptions = ACParticleRegistry.HAZMAT_BREATHE.get();
@@ -127,7 +126,7 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
                             if (!rodStack.isEmpty() && rodStack.is(BlockRegistry.GAMMA_ROD.get().asItem()))
                             {
                                 gammaRodHandler.setFissioningGammaRod(true);
-                                blockEntity.setFissionTime(2440);
+                                blockEntity.setFissionTime(1360 * 3 - 20 * 12);
                                 rodStack.shrink(1);
                                 blockEntity.setCurrentWaste(blockEntity.getCurrentWaste() + 100);
                             }
@@ -138,6 +137,7 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
                                 blockEntity.setCurrentWaste(blockEntity.getCurrentWaste() + 100);
                             }
                             blockEntity.resetCookingTime();
+                            blockEntity.setMaxCookTime(0);
                         }
                         else if (blockEntity.getCookTime() < blockEntity.getMaxCookTime())
                         {
@@ -160,7 +160,10 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
                             flag = true;
                         }
                     }
-                    else blockEntity.resetCookingTime();
+                    else {
+                        blockEntity.resetCookingTime();
+                        blockEntity.setMaxCookTime(0);
+                    }
                 }
                 else blockEntity.setCurrentRecipe(blockEntity.getCookingRecipe(cookStack).orElse(null));
             }
@@ -168,6 +171,7 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
             {
                 blockEntity.setCurrentRecipe(null);
                 blockEntity.resetCookingTime();
+                blockEntity.setMaxCookTime(0);
             }
 
             if (blockEntity.getFissionTime() > 0)
@@ -216,8 +220,7 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
             if (blockEntity.getCurrentWaste() >= MAX_WASTE)
                 entity.destroyWhileCritical(true);
         }
-        else if ((entity.isUndergoingFission() && !entity.isRemoved() && !gammaRodHandler.isFissioningGammaRod())
-                || (!entity.isRemoved() && !((IAccessNuclearFurnaceBlockEntity) entity).getItems().get(0).isEmpty() && gammaRodHandler.isFissioningGammaRod()))
+        else if (isSmeltingSided(entity))
         {
             AlexsCaves.PROXY.playWorldSound(entity, (byte) 7);
         } else {
@@ -226,18 +229,26 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
         }
     }
 
+    @Unique
+    private static boolean isSmeltingSided(NuclearFurnaceBlockEntity entity) {
+        IGammaRodHandleFurnace gammaRodHandler = ((IGammaRodHandleFurnace) entity);
+
+        ItemStack cookStack = ((IAccessNuclearFurnaceBlockEntity) entity).getItems().get(0);
+        ItemStack resultStack = ((IAccessNuclearFurnaceBlockEntity) entity).getItems().get(3);
+
+        boolean normalSmelting = entity.isUndergoingFission() && !entity.isRemoved() && !gammaRodHandler.isFissioningGammaRod();
+        boolean gammaSmelting = !cookStack.isEmpty() && resultStack.getCount() < resultStack.getMaxStackSize()
+                && gammaRodHandler.isFissioningGammaRod();
+
+        return normalSmelting || gammaSmelting;
+    }
+
     @Inject(method = "setItem", at = @At("TAIL"))
     public void updateFurnaceItem(int slot, ItemStack itemStack, CallbackInfo ci)
     {
         NuclearFurnaceBlockEntity blockEntity = ((NuclearFurnaceBlockEntity) (Object) this);
         BlockPos pos = blockEntity.getBlockPos();
         NetworkRegistry.sendToTracking(blockEntity, new UpdateFurnaceItemPacket(pos, slot, itemStack));
-    }
-
-    @Inject(method = "resetCookTime()V", at = @At("TAIL"), remap = false)
-    public void resetMaxCookTime(CallbackInfo ci)
-    {
-        this.maxCookTime = 0;
     }
 
     @Override
