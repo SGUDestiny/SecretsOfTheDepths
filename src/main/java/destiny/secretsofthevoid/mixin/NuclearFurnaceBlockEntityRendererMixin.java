@@ -3,8 +3,8 @@ package destiny.secretsofthevoid.mixin;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.NuclearFurnaceBlockRenderer;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearFurnaceBlockEntity;
+import com.github.alexmodguy.alexscaves.server.inventory.NuclearFurnaceMenu;
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
-import destiny.secretsofthevoid.server.registry.BlockRegistry;
 import destiny.secretsofthevoid.server.util.IGammaRodHandleFurnace;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
@@ -43,6 +43,14 @@ public class NuclearFurnaceBlockEntityRendererMixin {
     private static final ResourceLocation SUBCRITICAL_TEXTURE_GAMMA = new ResourceLocation(SecretsOfTheVoid.MODID, "textures/entity/nuclear_furnace/nuclear_furnace_subcritical_gamma.png");
     @Unique
     private static final ResourceLocation SUBCRITICAL_TEXTURE_GLOW_GAMMA = new ResourceLocation(SecretsOfTheVoid.MODID, "textures/entity/nuclear_furnace/nuclear_furnace_subcritical_glow_gamma.png");
+    @Unique
+    private static final ResourceLocation CRITICAL_TEXTURE_GAMMA = new ResourceLocation(SecretsOfTheVoid.MODID, "textures/entity/nuclear_furnace/nuclear_furnace_critical_gamma.png");
+    @Unique
+    private static final ResourceLocation CRITICAL_TEXTURE_GLOW_GAMMA = new ResourceLocation(SecretsOfTheVoid.MODID, "textures/entity/nuclear_furnace/nuclear_furnace_critical_glow_gamma.png");
+    @Unique
+    private static final ResourceLocation SUPERCRITICAL_TEXTURE_GAMMA = new ResourceLocation(SecretsOfTheVoid.MODID, "textures/entity/nuclear_furnace/nuclear_furnace_supercritical_gamma.png");
+    @Unique
+    private static final ResourceLocation SUPERCRITICAL_TEXTURE_GLOW_GAMMA = new ResourceLocation(SecretsOfTheVoid.MODID, "textures/entity/nuclear_furnace/nuclear_furnace_supercritical_glow_gamma.png");
 
     /**
      * @author
@@ -50,6 +58,10 @@ public class NuclearFurnaceBlockEntityRendererMixin {
      */
     @Overwrite(remap = false)
     private RenderType getRenderTypeFor(NuclearFurnaceBlockEntity furnace, boolean glow) {
+        if (furnace.isUndergoingFission() && ((IAccessNuclearFurnaceBlockEntity) furnace).getItems().get(0).isEmpty()) {
+            return glow ? ACRenderTypes.getEyesAlphaEnabled(OFF_TEXTURE_GLOW) : RenderType.entityCutoutNoCull(OFF_TEXTURE);
+        }
+
         if (!furnace.isUndergoingFission() && furnace.getCriticality() <= 0) {
             return glow ? ACRenderTypes.getEyesAlphaEnabled(OFF_TEXTURE_GLOW) : RenderType.entityCutoutNoCull(OFF_TEXTURE);
         } else if (furnace.getCriticality() == 1) {
@@ -60,8 +72,18 @@ public class NuclearFurnaceBlockEntityRendererMixin {
 
             return glow ? ACRenderTypes.getEyesAlphaEnabled(SUBCRITICAL_TEXTURE_GLOW) : RenderType.entityCutoutNoCull(SUBCRITICAL_TEXTURE);
         } else if (furnace.getCriticality() == 2) {
+            if (((IGammaRodHandleFurnace) furnace).isFissioningGammaRod())
+            {
+                return glow ? ACRenderTypes.getEyesAlphaEnabled(CRITICAL_TEXTURE_GLOW_GAMMA) : RenderType.entityCutoutNoCull(CRITICAL_TEXTURE_GAMMA);
+            }
+
             return glow ? ACRenderTypes.getEyesAlphaEnabled(CRITICAL_TEXTURE_GLOW) : RenderType.entityCutoutNoCull(CRITICAL_TEXTURE);
         } else if (furnace.getCriticality() >= 3) {
+            if (((IGammaRodHandleFurnace) furnace).isFissioningGammaRod())
+            {
+                return glow ? ACRenderTypes.getEyesAlphaEnabled(SUPERCRITICAL_TEXTURE_GLOW_GAMMA) : RenderType.entityCutoutNoCull(SUPERCRITICAL_TEXTURE_GAMMA);
+            }
+
             return glow ? ACRenderTypes.getEyesAlphaEnabled(SUPERCRITICAL_TEXTURE_GLOW) : RenderType.entityCutoutNoCull(SUPERCRITICAL_TEXTURE);
         } else {
             if (((IGammaRodHandleFurnace) furnace).isFissioningGammaRod()) {

@@ -1,6 +1,7 @@
 package destiny.secretsofthevoid.mixin;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearFurnaceBlockEntity;
@@ -10,6 +11,7 @@ import destiny.secretsofthevoid.server.util.IGammaRodHandleFurnace;
 import destiny.secretsofthevoid.server.network.packets.UpdateFurnaceItemPacket;
 import destiny.secretsofthevoid.server.registry.BlockRegistry;
 import destiny.secretsofthevoid.server.registry.NetworkRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleOptions;
@@ -38,7 +40,7 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
 //    @Shadow private int barrelTime;
 //    @Shadow private int fissionTime;
 //    @Shadow private int cookTime;
-
+//
 //    @Mutable
 //    @Shadow @Final protected ContainerData dataAccess;
     @Unique
@@ -154,7 +156,8 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
             level.addAlwaysVisibleParticle(ParticleTypes.LARGE_SMOKE, true, vec3.x, vec3.y, vec3.z,
 					(level.random.nextFloat() - 0.5F) * 0.1F, level.random.nextFloat() * 0.1F, (level.random.nextFloat() - 0.5F) * 0.1F);
         }
-        else if (entity.isUndergoingFission() && level.random.nextFloat() < (float) entity.getCriticality() * 0.35F + 0.15F)
+        else if ((entity.isUndergoingFission() && level.random.nextFloat() < (float) entity.getCriticality() * 0.35F + 0.15F && !((IGammaRodHandleFurnace) entity).isFissioningGammaRod())
+                || (entity.isUndergoingFission() && level.random.nextFloat() < (float) entity.getCriticality() * 0.35F + 0.15F && ((IGammaRodHandleFurnace) entity).isFissioningGammaRod() && !((IAccessNuclearFurnaceBlockEntity) entity).getItems().get(0).isEmpty()))
         {
             Vec3 vec3 = entity.getExhaustPos();
             ParticleOptions particleOptions = ACParticleRegistry.HAZMAT_BREATHE.get();
@@ -207,6 +210,10 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
                             entity.setRecipeUsed(blockEntity.getCurrentRecipe());
                             blockEntity.resetCookingTime();
                             cookStack.shrink(1);
+
+                            BlockPos pos = entity.getBlockPos();
+                            NetworkRegistry.sendToTracking(entity, new UpdateFurnaceItemPacket(pos, 0, cookStack));
+
                             if (ItemStack.isSameItem(blockEntity.getItems().get(3), cookResult))
                                 blockEntity.getItems().get(3).grow(cookResult.getCount());
                             else entity.setItem(3, cookResult.copy());
@@ -217,7 +224,6 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
                     else blockEntity.resetCookingTime();
                 }
                 else blockEntity.setCurrentRecipe(blockEntity.getCookingRecipe(cookStack).orElse(null));
-
             }
             else
             {
@@ -271,10 +277,15 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
             if (blockEntity.getCurrentWaste() >= MAX_WASTE)
                 entity.destroyWhileCritical(true);
         }
-        else if (entity.isUndergoingFission() && !entity.isRemoved())
-            AlexsCaves.PROXY.playWorldSound(entity, (byte)7);
+        else if ((entity.isUndergoingFission() && !entity.isRemoved() && !gammaRodHandler.isFissioningGammaRod())
+                || (!entity.isRemoved() && !((IAccessNuclearFurnaceBlockEntity) entity).getItems().get(0).isEmpty() && gammaRodHandler.isFissioningGammaRod()))
+        {
+            AlexsCaves.PROXY.playWorldSound(entity, (byte) 7);
+        } else {
+            Minecraft.getInstance().getSoundManager().stop(ClientProxy.BLOCK_ENTITY_SOUND_INSTANCE_MAP.get(entity));
+            AlexsCaves.PROXY.clearSoundCacheFor(entity);
+        }
     }
-
 
     @Inject(method = "setItem", at = @At("TAIL"), remap = false)
     public void updateFurnaceItem(int slot, ItemStack itemStack, CallbackInfo ci)

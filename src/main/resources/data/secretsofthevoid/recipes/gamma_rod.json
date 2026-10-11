@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "UPU",
+    "NRN",
+    "UPU"
+  ],
+  "key": {
+    "U": {
+      "item": "alexscaves:uranium"
+    },
+    "N": {
+      "item": "secretsofthevoid:nuclear_pasta"
+    },
+    "R": {
+      "item": "alexscaves:uranium_rod"
+    },
+    "P": {
+      "item": "alexscaves:polymer_plate"
+    }
+  },
+  "result": {
+    "item": "secretsofthevoid:gamma_rod",
+    "count": 1
+  }
+}
