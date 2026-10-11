@@ -1,14 +1,18 @@
 package destiny.secretsofthevoid.mixin;
 
+import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearFurnaceBlockEntity;
 import com.github.alexmodguy.alexscaves.server.inventory.NuclearFurnaceMenu;
+import destiny.secretsofthevoid.server.network.packets.UpdateFurnaceMenuPosPacket;
+import destiny.secretsofthevoid.server.registry.NetworkRegistry;
+import destiny.secretsofthevoid.server.util.IGammaRodHandleFurnace;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.SimpleContainerData;
-import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,21 +20,55 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(NuclearFurnaceMenu.class)
-public class NuclearFurnaceMenuMixin
+public class NuclearFurnaceMenuMixin implements IGammaRodHandleFurnace
 {
-//	@Final
-//	@Shadow private ContainerData data;
-//
-//	@Inject(method = "getFissionScale()F", at = @At("HEAD"), cancellable = true, remap = false)
-//	public void dontStaticTime(CallbackInfoReturnable<Float> cir)
-//	{
-//		boolean isGamma = data.get(5) == 1;
-//		cir.setReturnValue(data.get(2)/ (isGamma ? 6400 * 0.4f : 6400 * 0.2f));
-//	}
+	@Mutable
+	@Final
+	@Shadow private ContainerData data;
 
-//	@Inject(method = "<init>(ILnet/minecraft/world/entity/player/Inventory;)V", at = @At("RETURN"))
-//	public void overrideDataAccess(int id, Inventory inventory, CallbackInfo ci)
-//	{
-//		this(id, inventory, new SimpleContainer(5), new SimpleContainerData(5));
-//	}
+	@Shadow @Final private Container container;
+	private boolean isFissioningGammaRod;
+	private BlockPos furnacePos;
+
+	@Inject(method = "getFissionScale()F", at = @At("HEAD"), cancellable = true, remap = false)
+	public void dontStaticTime(CallbackInfoReturnable<Float> cir)
+	{
+		boolean isGamma = isFissioningGammaRod();
+		cir.setReturnValue(data.get(2)/ (isGamma ? 6400 * 0.4f : 6400 * 0.2f));
+	}
+
+	@Inject(method = "stillValid(Lnet/minecraft/world/entity/player/Player;)Z",
+	at = @At("RETURN"))
+	public void stillValidInject(Player player, CallbackInfoReturnable<Boolean> cir)
+	{
+		if(container instanceof NuclearFurnaceBlockEntity blockEntity)
+		{
+			setFurnacePos(blockEntity.getBlockPos());
+			NetworkRegistry.sendToTracking(blockEntity, new UpdateFurnaceMenuPosPacket(blockEntity.getBlockPos()));
+		}
+	}
+
+	@Override
+	public boolean isFissioningGammaRod()
+	{
+		return isFissioningGammaRod;
+	}
+
+	@Override
+	public void setFissioningGammaRod(boolean val)
+	{
+		isFissioningGammaRod = val;
+	}
+
+	@Override
+	public BlockPos getFurnacePos()
+	{
+		return furnacePos;
+	}
+
+	@Override
+	public void setFurnacePos(BlockPos pos)
+	{
+		furnacePos = pos;
+	}
 }

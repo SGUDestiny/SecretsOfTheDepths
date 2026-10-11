@@ -2,10 +2,7 @@ package destiny.secretsofthevoid.server.registry;
 
 import destiny.secretsofthevoid.client.network.ClientBoundParticlePacket;
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
-import destiny.secretsofthevoid.server.network.packets.OpenGUIAlphabetPacket;
-import destiny.secretsofthevoid.server.network.packets.SoundPackets;
-import destiny.secretsofthevoid.server.network.packets.UpdateDivingPacket;
-import destiny.secretsofthevoid.server.network.packets.UpdateFurnaceItemPacket;
+import destiny.secretsofthevoid.server.network.packets.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,7 +26,21 @@ public class NetworkRegistry {
                 UpdateFurnaceItemPacket::read,
                 UpdateFurnaceItemPacket::handle
         );
-        
+
+        INSTANCE.registerMessage(id(),
+                UpdateFurnaceRodStatePacket.class,
+                UpdateFurnaceRodStatePacket::write,
+                UpdateFurnaceRodStatePacket::read,
+                UpdateFurnaceRodStatePacket::handle
+        );
+
+        INSTANCE.registerMessage(id(),
+                UpdateFurnaceMenuPosPacket.class,
+                UpdateFurnaceMenuPosPacket::write,
+                UpdateFurnaceMenuPosPacket::read,
+                UpdateFurnaceMenuPosPacket::handle
+        );
+
         INSTANCE.registerMessage(id(), UpdateDivingPacket.class, UpdateDivingPacket::write, UpdateDivingPacket::read, UpdateDivingPacket::handle);
         INSTANCE.registerMessage(id(), SoundPackets.RebreatherInhale.class, SoundPackets.RebreatherInhale::write, SoundPackets.RebreatherInhale::read, SoundPackets.RebreatherInhale::handle);
         INSTANCE.registerMessage(id(), SoundPackets.RebreatherExhale.class, SoundPackets.RebreatherExhale::write, SoundPackets.RebreatherExhale::read, SoundPackets.RebreatherExhale::handle);

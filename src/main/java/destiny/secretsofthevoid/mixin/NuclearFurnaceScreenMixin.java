@@ -3,6 +3,7 @@ package destiny.secretsofthevoid.mixin;
 import com.github.alexmodguy.alexscaves.client.gui.NuclearFurnaceScreen;
 import com.github.alexmodguy.alexscaves.server.inventory.NuclearFurnaceMenu;
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
+import destiny.secretsofthevoid.server.util.IGammaRodHandleFurnace;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -12,6 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(NuclearFurnaceScreen.class)
@@ -25,15 +27,13 @@ public abstract class NuclearFurnaceScreenMixin extends AbstractContainerScreen<
         super(pMenu, pPlayerInventory, pTitle);
     }
 
-/*    @Inject(method = "renderBg", at = @At(value = "RETURN"))
-    private void renderGammaFissionProgress(GuiGraphics guiGraphics, float f, int x, int y, CallbackInfo ci) {
-        int i = this.leftPos;
-        int j = this.topPos;
-
-        float fissionAmount = this.menu.getFissionScale();
-        if (fissionAmount > 0.0F) {
-            int fissionPixels = (int)Math.ceil((double)(14.0F * fissionAmount));
-            guiGraphics.blit(TEXTURE, i + 68, j + 36 + (14 - fissionPixels), 176, 14 - fissionPixels, 14, fissionPixels);
-        }
-    }*/
+    @Redirect(method = "renderBg",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIIIII)V", ordinal = 5))
+    private void renderGammaFissionProgress(GuiGraphics instance, ResourceLocation pAtlasLocation, int pX, int pY,
+                                            int pUOffset, int pVOffset, int pUWidth, int pVHeight)
+    {
+        IGammaRodHandleFurnace menu = ((IGammaRodHandleFurnace) this.menu);
+        boolean isGammaRod = menu.isFissioningGammaRod();
+        instance.blit(isGammaRod ? TEXTURE_GAMMA : TEXTURE, pX, pY, pUOffset, pVOffset, pUWidth, pVHeight);
+    }
 }

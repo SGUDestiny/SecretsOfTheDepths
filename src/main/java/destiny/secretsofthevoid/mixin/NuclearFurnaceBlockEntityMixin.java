@@ -7,6 +7,7 @@ import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearFurnaceBlockEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
+import destiny.secretsofthevoid.server.network.packets.UpdateFurnaceRodStatePacket;
 import destiny.secretsofthevoid.server.util.IGammaRodHandleFurnace;
 import destiny.secretsofthevoid.server.network.packets.UpdateFurnaceItemPacket;
 import destiny.secretsofthevoid.server.registry.BlockRegistry;
@@ -17,7 +18,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,70 +36,9 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
     @Shadow
     protected NonNullList<ItemStack> items;
     @Shadow private int maxCookTime;
-//    @Shadow private int currentWaste;
-//    @Shadow private int barrelTime;
-//    @Shadow private int fissionTime;
-//    @Shadow private int cookTime;
-//
-//    @Mutable
-//    @Shadow @Final protected ContainerData dataAccess;
+
     @Unique
     private boolean fissioningGammaRod = false;
-
-//    @Inject(method = "<init>", at = @At("RETURN"))
-//    public void overrideDataAccess(BlockPos pos, BlockState state, CallbackInfo ci)
-//    {
-//        dataAccess = new ContainerData() {
-//            public int get(int type) {
-//                switch (type) {
-//                    case 0 -> {
-//                        return currentWaste;
-//                    }
-//                    case 1 -> {
-//                        return barrelTime;
-//                    }
-//                    case 2 -> {
-//                        return fissionTime;
-//                    }
-//                    case 3 -> {
-//                        return cookTime;
-//                    }
-//                    case 4 -> {
-//                        return maxCookTime;
-//                    }
-//                    case 5 ->
-//                    {
-//                        return isFissioningGammaRod() ? 1 : 0;
-//                    }
-//                    default -> {
-//                        return 0;
-//                    }
-//                }
-//            }
-//
-//            public void set(int type, int value) {
-//                switch (type) {
-//                    case 0:
-//                        currentWaste = value;
-//                    case 1:
-//                        barrelTime = value;
-//                    case 2:
-//                        fissionTime = value;
-//                    case 3:
-//                        cookTime = value;
-//                    case 4:
-//                        maxCookTime = value;
-//                    case 5:
-//                        setFissioningGammaRod(value == 1);
-//                    default:
-//                }
-//            }
-//
-//            public int getCount() {
-//                return 6;
-//            }
-//        };
-//    }
 
     @Inject(method = "getMaxFissionTime", at = @At("HEAD"), cancellable = true, remap = false)
     private static void getMaxFissionTime(CallbackInfoReturnable<Integer> cir)
@@ -304,6 +243,10 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
     @Override
     public boolean isFissioningGammaRod()
     {
+        NuclearFurnaceBlockEntity blockEntity = ((NuclearFurnaceBlockEntity) (Object) this);
+        if(!blockEntity.getLevel().isClientSide())
+            NetworkRegistry.sendToTracking(blockEntity, new UpdateFurnaceRodStatePacket(blockEntity.getBlockPos(), fissioningGammaRod));
+
         return fissioningGammaRod;
     }
 
@@ -311,5 +254,9 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
     public void setFissioningGammaRod(boolean val)
     {
         this.fissioningGammaRod = val;
+
+        NuclearFurnaceBlockEntity blockEntity = ((NuclearFurnaceBlockEntity) (Object) this);
+        if(!blockEntity.getLevel().isClientSide())
+            NetworkRegistry.sendToTracking(blockEntity, new UpdateFurnaceRodStatePacket(blockEntity.getBlockPos(), fissioningGammaRod));
     }
 }

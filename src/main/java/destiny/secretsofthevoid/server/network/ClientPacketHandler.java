@@ -1,14 +1,16 @@
 package destiny.secretsofthevoid.server.network;
 
 import com.eliotlash.mclib.math.functions.limit.Min;
+import com.github.alexmodguy.alexscaves.client.gui.NuclearFurnaceScreen;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearFurnaceBlockEntity;
 import destiny.secretsofthevoid.client.gui.GUIAncientAlphabet;
-import destiny.secretsofthevoid.server.network.packets.UpdateFurnaceItemPacket;
+import destiny.secretsofthevoid.mixin.NuclearFurnaceBlockEntityMixin;
+import destiny.secretsofthevoid.server.network.packets.*;
 import destiny.secretsofthevoid.server.registry.CapabilityRegistry;
-import destiny.secretsofthevoid.server.network.packets.OpenGUIAlphabetPacket;
-import destiny.secretsofthevoid.server.network.packets.UpdateDivingPacket;
+import destiny.secretsofthevoid.server.util.IGammaRodHandleFurnace;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -54,5 +56,41 @@ public class ClientPacketHandler
         BlockEntity blockEntity = level.getBlockEntity(packet.pos);
         if(blockEntity instanceof NuclearFurnaceBlockEntity furnace)
             furnace.setItem(packet.slot, packet.stack);
+    }
+
+    public static void handleUpdateFurnaceRodPacket(UpdateFurnaceRodStatePacket packet)
+    {
+        Minecraft minecraft = Minecraft.getInstance();
+        Level level = minecraft.level;
+        if(level == null)
+            return;
+
+        BlockEntity blockEntity = level.getBlockEntity(packet.pos);
+        if(blockEntity instanceof NuclearFurnaceBlockEntity && blockEntity instanceof IGammaRodHandleFurnace)
+        {
+            if(minecraft.screen instanceof NuclearFurnaceScreen screen)
+            {
+                if(screen.getMenu() instanceof IGammaRodHandleFurnace gammaMenu)
+                {
+                    BlockPos menuFurnacePos = gammaMenu.getFurnacePos();
+                    if(menuFurnacePos.equals(packet.pos))
+                        gammaMenu.setFissioningGammaRod(packet.gamma);
+                }
+            }
+        }
+    }
+
+    public static void handleUpdateFurnacePosPacket(UpdateFurnaceMenuPosPacket packet)
+    {
+        Minecraft minecraft = Minecraft.getInstance();
+        Level level = minecraft.level;
+        if(level == null)
+            return;
+
+        if(minecraft.screen instanceof NuclearFurnaceScreen screen)
+        {
+            if(screen.getMenu() instanceof IGammaRodHandleFurnace gammaRodHandleFurnace)
+                gammaRodHandleFurnace.setFurnacePos(packet.pos);
+        }
     }
 }
