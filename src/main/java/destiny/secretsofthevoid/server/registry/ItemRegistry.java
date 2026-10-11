@@ -144,6 +144,9 @@ public class ItemRegistry {
             () -> new TrenchbleederItem(ToolTierRegistry.TRENCHBLEEDER, 2.5f, -2.0f,
                     new Item.Properties().fireResistant().rarity(RARITY_ABYSSAL)));
 
+    public static final RegistryObject<SievertRodItem> SIEVERT_ROD = ITEMS.register("sievert_rod",
+            () -> new SievertRodItem(new Item.Properties().stacksTo(1)));
+
     //Misc Items
     public static final RegistryObject<CalligraphyKitItem> CALLIGRAPHY_KIT = ITEMS.register("calligraphy_kit",
             () -> new CalligraphyKitItem(new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1)));

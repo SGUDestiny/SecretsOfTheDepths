@@ -6,6 +6,8 @@ import destiny.secretsofthevoid.client.render.particle.NeutronParticle;
 import destiny.secretsofthevoid.server.registry.*;
 import destiny.secretsofthevoid.server.items.tools.HadalItemProperty;
 import destiny.secretsofthevoid.server.worldgen.feature.ModFeatures;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.FishingHookRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,6 +42,7 @@ public class SecretsOfTheVoid {
         BlockRegistry.BLOCKS.register(modBus);
         SoundRegistry.SOUNDS.register(modBus);
         ModFeatures.DEF_REG.register(modBus);
+        EntityRegistry.ENTITIES.register(modBus);
         BlockEntityRegistry.DEF_REG.register(modBus);
         ParticleTypeRegistry.PARTICLE_TYPES.register(modBus);
 
@@ -70,6 +73,8 @@ public class SecretsOfTheVoid {
                 ItemProperties.register(ItemRegistry.HADAL_PICKAXE.get(), new ResourceLocation(MODID, "active"), new HadalItemProperty());
                 ItemProperties.register(ItemRegistry.HADAL_AXE.get(), new ResourceLocation(MODID, "active"), new HadalItemProperty());
                 ItemProperties.register(ItemRegistry.HADAL_HOE.get(), new ResourceLocation(MODID, "active"), new HadalItemProperty());
+
+                EntityRenderers.register(EntityRegistry.SIEVERT_ROD_HOOK.get(), FishingHookRenderer::new);
             });
         }
 

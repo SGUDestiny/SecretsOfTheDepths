@@ -19,6 +19,8 @@ public class CreativeTabRegistry {
 
     public static void setupTabs(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == ACCreativeTabRegistry.TOXIC_CAVES.getKey()) {
+            event.accept(ItemRegistry.SIEVERT_ROD.get());
+
             event.accept(BlockRegistry.GAMMA_ROD.get());
 
             event.accept(BlockRegistry.IRRADIATED_CRATE);
