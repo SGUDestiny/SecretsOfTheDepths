@@ -113,7 +113,7 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
         cir.setReturnValue(0.2f);
     }
 
-    @Inject(method = "saveAdditional", at = @At("TAIL"), remap = false)
+    @Inject(method = "saveAdditional", at = @At("TAIL"))
     private void saveGammaRod(CompoundTag tag, CallbackInfo ci)
     {
         tag.putBoolean("gamma_rod", fissioningGammaRod);
@@ -287,7 +287,7 @@ public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleF
         }
     }
 
-    @Inject(method = "setItem", at = @At("TAIL"), remap = false)
+    @Inject(method = "setItem", at = @At("TAIL"))
     public void updateFurnaceItem(int slot, ItemStack itemStack, CallbackInfo ci)
     {
         NuclearFurnaceBlockEntity blockEntity = ((NuclearFurnaceBlockEntity) (Object) this);
