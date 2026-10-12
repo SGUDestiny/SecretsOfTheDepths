@@ -1,9 +1,14 @@
 package destiny.secretsofthevoid.server.entity;
 
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import destiny.secretsofthevoid.server.registry.EntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -12,6 +17,8 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 
@@ -143,6 +150,97 @@ public class SievertRodHookEntity extends FishingHook {
             double d1 = 0.92;
             this.setDeltaMovement(this.getDeltaMovement().scale(0.92));
             this.reapplyPosition();
+        }
+
+    }
+
+    @Override
+    public void catchingFish(BlockPos pPos) {
+        ServerLevel serverlevel = (ServerLevel)this.level();
+        int i = 1;
+        BlockPos blockpos = pPos.above();
+        if (this.random.nextFloat() < 0.25F && this.level().isRainingAt(blockpos)) {
+            ++i;
+        }
+
+        if (this.random.nextFloat() < 0.5F && !this.level().canSeeSky(blockpos)) {
+            --i;
+        }
+
+        if (this.nibble > 0) {
+            --this.nibble;
+            if (this.nibble <= 0) {
+                this.timeUntilLured = 0;
+                this.timeUntilHooked = 0;
+                this.getEntityData().set(DATA_BITING, false);
+            }
+        } else if (this.timeUntilHooked > 0) {
+            this.timeUntilHooked -= i;
+            if (this.timeUntilHooked > 0) {
+                this.fishAngle += (float)this.random.triangle((double)0.0F, 9.188);
+                float f = this.fishAngle * ((float)Math.PI / 180F);
+                float f1 = Mth.sin(f);
+                float f2 = Mth.cos(f);
+                double d0 = this.getX() + (double)(f1 * (float)this.timeUntilHooked * 0.1F);
+                double d1 = (double)((float)Mth.floor(this.getY()) + 1.0F);
+                double d2 = this.getZ() + (double)(f2 * (float)this.timeUntilHooked * 0.1F);
+                BlockState blockstate = serverlevel.getBlockState(BlockPos.containing(d0, d1 - (double)1.0F, d2));
+                if (blockstate.is(Blocks.WATER)) {
+                    if (this.random.nextFloat() < 0.15F) {
+                        serverlevel.sendParticles(ParticleTypes.BUBBLE, d0, d1 - (double)0.1F, d2, 1, (double)f1, 0.1, (double)f2, (double)0.0F);
+                    }
+
+                    float f3 = f1 * 0.04F;
+                    float f4 = f2 * 0.04F;
+                    serverlevel.sendParticles(ParticleTypes.FISHING, d0, d1, d2, 0, (double)f4, 0.01, (double)(-f3), (double)1.0F);
+                    serverlevel.sendParticles(ParticleTypes.FISHING, d0, d1, d2, 0, (double)(-f4), 0.01, (double)f3, (double)1.0F);
+                } else if (blockstate.is(ACBlockRegistry.ACID.get())) {
+                    if (this.random.nextFloat() < 0.15F) {
+                        serverlevel.sendParticles(ParticleTypes.BUBBLE, d0, d1 - (double)0.1F, d2, 1, (double)f1, 0.1, (double)f2, (double)0.0F);
+                    }
+
+                    float f3 = f1 * 0.04F;
+                    float f4 = f2 * 0.04F;
+                    serverlevel.sendParticles(ACParticleRegistry.HAZMAT_BREATHE.get(), d0, d1, d2, 0, (double)f4, 0.01, (double)(-f3), (double)1.0F);
+                    serverlevel.sendParticles(ACParticleRegistry.HAZMAT_BREATHE.get(), d0, d1, d2, 0, (double)(-f4), 0.01, (double)f3, (double)1.0F);
+                }
+            } else {
+                this.playSound(SoundEvents.FISHING_BOBBER_SPLASH, 0.25F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+                double d3 = this.getY() + (double)0.5F;
+                serverlevel.sendParticles(ParticleTypes.BUBBLE, this.getX(), d3, this.getZ(), (int)(1.0F + this.getBbWidth() * 20.0F), (double)this.getBbWidth(), (double)0.0F, (double)this.getBbWidth(), (double)0.2F);
+                serverlevel.sendParticles(ParticleTypes.FISHING, this.getX(), d3, this.getZ(), (int)(1.0F + this.getBbWidth() * 20.0F), (double)this.getBbWidth(), (double)0.0F, (double)this.getBbWidth(), (double)0.2F);
+                this.nibble = Mth.nextInt(this.random, 20, 40);
+                this.getEntityData().set(DATA_BITING, true);
+            }
+        } else if (this.timeUntilLured > 0) {
+            this.timeUntilLured -= i;
+            float f5 = 0.15F;
+            if (this.timeUntilLured < 20) {
+                f5 += (float)(20 - this.timeUntilLured) * 0.05F;
+            } else if (this.timeUntilLured < 40) {
+                f5 += (float)(40 - this.timeUntilLured) * 0.02F;
+            } else if (this.timeUntilLured < 60) {
+                f5 += (float)(60 - this.timeUntilLured) * 0.01F;
+            }
+
+            if (this.random.nextFloat() < f5) {
+                float f6 = Mth.nextFloat(this.random, 0.0F, 360.0F) * ((float)Math.PI / 180F);
+                float f7 = Mth.nextFloat(this.random, 25.0F, 60.0F);
+                double d4 = this.getX() + (double)(Mth.sin(f6) * f7) * 0.1;
+                double d5 = (double)((float)Mth.floor(this.getY()) + 1.0F);
+                double d6 = this.getZ() + (double)(Mth.cos(f6) * f7) * 0.1;
+                BlockState blockstate1 = serverlevel.getBlockState(BlockPos.containing(d4, d5 - (double)1.0F, d6));
+                if (blockstate1.is(Blocks.WATER) || blockstate1.is(ACBlockRegistry.ACID.get())) {
+                    serverlevel.sendParticles(ParticleTypes.SPLASH, d4, d5, d6, 2 + this.random.nextInt(2), (double)0.1F, (double)0.0F, (double)0.1F, (double)0.0F);
+                }
+            }
+            if (this.timeUntilLured <= 0) {
+                this.fishAngle = Mth.nextFloat(this.random, 0.0F, 360.0F);
+                this.timeUntilHooked = Mth.nextInt(this.random, 20, 80);
+            }
+        } else {
+            this.timeUntilLured = Mth.nextInt(this.random, 100, 600);
+            this.timeUntilLured -= this.lureSpeed * 20 * 5;
         }
 
     }
