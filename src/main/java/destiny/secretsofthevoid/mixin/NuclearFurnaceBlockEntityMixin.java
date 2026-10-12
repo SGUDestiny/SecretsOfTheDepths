@@ -33,9 +33,10 @@ import static com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearF
 @Mixin(NuclearFurnaceBlockEntity.class)
 public abstract class NuclearFurnaceBlockEntityMixin implements IGammaRodHandleFurnace
 {
-    @Shadow
+    @Shadow(remap = false)
     protected NonNullList<ItemStack> items;
-    @Shadow private int maxCookTime;
+    @Shadow(remap = false)
+    private int maxCookTime;
 
     @Unique
     private boolean fissioningGammaRod = false;

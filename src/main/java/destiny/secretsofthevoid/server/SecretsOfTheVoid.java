@@ -2,6 +2,7 @@ package destiny.secretsofthevoid.server;
 
 import com.github.alexmodguy.alexscaves.server.CommonProxy;
 import destiny.secretsofthevoid.client.gui.OxygenOverlay;
+import destiny.secretsofthevoid.client.render.entity.SievertRodHookEntityRenderer;
 import destiny.secretsofthevoid.client.render.particle.NeutronParticle;
 import destiny.secretsofthevoid.server.registry.*;
 import destiny.secretsofthevoid.server.items.tools.HadalItemProperty;
@@ -74,7 +75,7 @@ public class SecretsOfTheVoid {
                 ItemProperties.register(ItemRegistry.HADAL_AXE.get(), new ResourceLocation(MODID, "active"), new HadalItemProperty());
                 ItemProperties.register(ItemRegistry.HADAL_HOE.get(), new ResourceLocation(MODID, "active"), new HadalItemProperty());
 
-                EntityRenderers.register(EntityRegistry.SIEVERT_ROD_HOOK.get(), FishingHookRenderer::new);
+                EntityRenderers.register(EntityRegistry.SIEVERT_ROD_HOOK.get(), SievertRodHookEntityRenderer::new);
             });
         }
 

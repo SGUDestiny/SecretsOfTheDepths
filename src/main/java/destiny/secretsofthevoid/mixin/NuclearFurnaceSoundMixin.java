@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.*;
 public class NuclearFurnaceSoundMixin extends BlockEntityTickableSound<NuclearFurnaceBlockEntity> {
     @Mutable
     @Final
-    @Shadow
+    @Shadow(remap = false)
     private final int criticality;
-    @Shadow
+    @Shadow(remap = false)
     private int fade = 0;
 
     public NuclearFurnaceSoundMixin(SoundEvent soundEvent, NuclearFurnaceBlockEntity furnace) {

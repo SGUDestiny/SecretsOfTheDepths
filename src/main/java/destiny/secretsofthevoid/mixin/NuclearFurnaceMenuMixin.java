@@ -24,9 +24,12 @@ public class NuclearFurnaceMenuMixin implements IGammaRodHandleFurnace
 {
 	@Mutable
 	@Final
-	@Shadow private ContainerData data;
+	@Shadow(remap = false)
+	private ContainerData data;
 
-	@Shadow @Final private Container container;
+	@Shadow(remap = false)
+	@Final
+	private Container container;
 	private boolean isFissioningGammaRod;
 	private BlockPos furnacePos;
 

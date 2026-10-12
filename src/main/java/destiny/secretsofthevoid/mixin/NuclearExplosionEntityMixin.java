@@ -24,7 +24,7 @@ public abstract class NuclearExplosionEntityMixin extends Entity {
 
     @Unique
     public int affected;
-    @Shadow
+    @Shadow(remap = false)
     public abstract float getSize();
 
     @Inject(method = "getChunksAffected()I", at = @At("HEAD"), remap = false)

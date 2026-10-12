@@ -50,7 +50,7 @@ public class SievertRodHookEntity extends FishingHook {
     @Override
     public void tick() {
         this.syncronizedRandom.setSeed(this.getUUID().getLeastSignificantBits() ^ this.level().getGameTime());
-        super.tick();
+        this.baseTick();
         Player player = this.getPlayerOwner();
         if (player == null) {
             this.discard();
@@ -65,14 +65,14 @@ public class SievertRodHookEntity extends FishingHook {
                 this.life = 0;
             }
 
-            float f = 0.0F;
+            float fluidHeight = 0.0F;
             BlockPos blockpos = this.blockPosition();
             FluidState fluidstate = this.level().getFluidState(blockpos);
             if (fluidstate.is(FluidTags.WATER) || fluidstate.is(ACFluidRegistry.ACID_FLUID_SOURCE.get())) {
-                f = fluidstate.getHeight(this.level(), blockpos);
+                fluidHeight = fluidstate.getHeight(this.level(), blockpos);
             }
 
-            boolean flag = f > 0.0F;
+            boolean flag = fluidHeight > 0.0F;
             if (this.currentState == FishingHook.FishHookState.FLYING) {
                 if (this.hookedIn != null) {
                     this.setDeltaMovement(Vec3.ZERO);
@@ -103,7 +103,7 @@ public class SievertRodHookEntity extends FishingHook {
 
                 if (this.currentState == FishingHook.FishHookState.BOBBING) {
                     Vec3 vec3 = this.getDeltaMovement();
-                    double d0 = this.getY() + vec3.y - (double)blockpos.getY() - (double)f;
+                    double d0 = this.getY() + vec3.y - (double)blockpos.getY() - (double)fluidHeight;
                     if (Math.abs(d0) < 0.01) {
                         d0 += Math.signum(d0) * 0.1;
                     }
@@ -130,7 +130,7 @@ public class SievertRodHookEntity extends FishingHook {
                 }
             }
 
-            if (!fluidstate.is(FluidTags.WATER)) {
+            if (!fluidstate.is(FluidTags.WATER) && !fluidstate.is(ACFluidRegistry.ACID_FLUID_SOURCE.get())) {
                 this.setDeltaMovement(this.getDeltaMovement().add((double)0.0F, -0.03, (double)0.0F));
             }
 
