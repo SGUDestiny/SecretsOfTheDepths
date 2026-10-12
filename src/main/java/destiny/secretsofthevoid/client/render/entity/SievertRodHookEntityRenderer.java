@@ -3,8 +3,11 @@ package destiny.secretsofthevoid.client.render.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import destiny.secretsofthevoid.client.render.RenderTypes;
+import destiny.secretsofthevoid.server.SecretsOfTheVoid;
 import destiny.secretsofthevoid.server.entity.SievertRodHookEntity;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -14,7 +17,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolActions;
@@ -22,8 +24,10 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 public class SievertRodHookEntityRenderer extends EntityRenderer<SievertRodHookEntity> {
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation("textures/entity/fishing_hook.png");
-    private static final RenderType RENDER_TYPE;
+    private static final ResourceLocation HOOK = new ResourceLocation(SecretsOfTheVoid.MODID, "textures/entity/sievert_hook.png");
+    private static final ResourceLocation HOOK_EMISSIVE = new ResourceLocation(SecretsOfTheVoid.MODID, "textures/entity/sievert_hook_emissive.png");
+    private static final RenderType RENDER_TYPE = RenderType.entityCutout(HOOK);
+    private static final RenderType RENDER_TYPE_EMISSIVE = RenderTypes.getEmissiveRenderType(HOOK_EMISSIVE);
     private static final double VIEW_BOBBING_SCALE = (double)960.0F;
 
     public SievertRodHookEntityRenderer(EntityRendererProvider.Context pContext) {
@@ -46,6 +50,13 @@ public class SievertRodHookEntityRenderer extends EntityRenderer<SievertRodHookE
             vertex(vertexconsumer, matrix4f, matrix3f, pPackedLight, 1.0F, 0, 1, 1);
             vertex(vertexconsumer, matrix4f, matrix3f, pPackedLight, 1.0F, 1, 1, 0);
             vertex(vertexconsumer, matrix4f, matrix3f, pPackedLight, 0.0F, 1, 0, 0);
+
+            VertexConsumer vertexconsumer1 = pBuffer.getBuffer(RENDER_TYPE_EMISSIVE);
+            vertexEmissive(vertexconsumer1, matrix4f, matrix3f, 0.0F, 0, 0, 1);
+            vertexEmissive(vertexconsumer1, matrix4f, matrix3f, 1.0F, 0, 1, 1);
+            vertexEmissive(vertexconsumer1, matrix4f, matrix3f, 1.0F, 1, 1, 0);
+            vertexEmissive(vertexconsumer1, matrix4f, matrix3f, 0.0F, 1, 0, 0);
+
             pMatrixStack.popPose();
             int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
             ItemStack itemstack = player.getMainHandItem();
@@ -87,12 +98,12 @@ public class SievertRodHookEntityRenderer extends EntityRenderer<SievertRodHookE
             float f4 = (float)(d4 - d9);
             float f5 = (float)(d5 - d10) + f3;
             float f6 = (float)(d6 - d8);
-            VertexConsumer vertexconsumer1 = pBuffer.getBuffer(RenderType.lineStrip());
+            VertexConsumer vertexconsumer2 = pBuffer.getBuffer(RenderType.lineStrip());
             PoseStack.Pose posestack$pose1 = pMatrixStack.last();
             int j = 16;
 
             for(int k = 0; k <= 16; ++k) {
-                stringVertex(f4, f5, f6, vertexconsumer1, posestack$pose1, fraction(k, 16), fraction(k + 1, 16));
+                stringVertex(f4, f5, f6, vertexconsumer2, posestack$pose1, fraction(k, 16), fraction(k + 1, 16));
             }
 
             pMatrixStack.popPose();
@@ -107,6 +118,10 @@ public class SievertRodHookEntityRenderer extends EntityRenderer<SievertRodHookE
 
     private static void vertex(VertexConsumer pConsumer, Matrix4f p_254085_, Matrix3f p_253962_, int pLightmapUV, float pX, int pY, int pU, int pV) {
         pConsumer.vertex(p_254085_, pX - 0.5F, (float)pY - 0.5F, 0.0F).color(255, 255, 255, 255).uv((float)pU, (float)pV).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pLightmapUV).normal(p_253962_, 0.0F, 1.0F, 0.0F).endVertex();
+    }
+
+    private static void vertexEmissive(VertexConsumer pConsumer, Matrix4f p_254085_, Matrix3f p_253962_, float pX, int pY, int pU, int pV) {
+        pConsumer.vertex(p_254085_, pX - 0.5F, (float)pY - 0.5F, 0.0F).color(255, 255, 255, 255).uv((float)pU, (float)pV).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(p_253962_, 0.0F, 1.0F, 0.0F).endVertex();
     }
 
     private static void stringVertex(float p_174119_, float p_174120_, float p_174121_, VertexConsumer pConsumer, PoseStack.Pose pPose, float p_174124_, float p_174125_) {
@@ -124,10 +139,6 @@ public class SievertRodHookEntityRenderer extends EntityRenderer<SievertRodHookE
     }
 
     public ResourceLocation getTextureLocation(SievertRodHookEntity pEntity) {
-        return TEXTURE_LOCATION;
-    }
-
-    static {
-        RENDER_TYPE = RenderType.entityCutout(TEXTURE_LOCATION);
+        return HOOK;
     }
 }
