@@ -65,10 +65,10 @@ public class CreativeTabRegistry {
             event.accept(ItemRegistry.HADAL_HOE);
 
             //Armor
-            event.accept(ItemRegistry.SCORIA_HELMET);
+/*            event.accept(ItemRegistry.SCORIA_HELMET);
             event.accept(ItemRegistry.SCORIA_CHESTPLATE);
             event.accept(ItemRegistry.SCORIA_LEGGINGS);
-            event.accept(ItemRegistry.SCORIA_BOOTS);
+            event.accept(ItemRegistry.SCORIA_BOOTS);*/
 
             //Diving Gear
             event.accept(ItemHelper.newMask(ItemRegistry.PEARL_MASK.get(), 1.2));
@@ -81,15 +81,15 @@ public class CreativeTabRegistry {
             event.accept(ItemHelper.newLegwear(ItemRegistry.NETHERITE_LEGWEAR.get(), 0.3));
             event.accept(ItemHelper.newFlippers(ItemRegistry.NETHERITE_FLIPPERS.get(), 0.5));
 
-            event.accept(ItemHelper.newMask(ItemRegistry.ABYSSALITH_MASK.get(), 2.0));
+/*            event.accept(ItemHelper.newMask(ItemRegistry.ABYSSALITH_MASK.get(), 2.0));
             event.accept(ItemHelper.newBacktank(ItemRegistry.ABYSSALITH_BACKTANK.get(), 1620));
             event.accept(ItemHelper.newLegwear(ItemRegistry.ABYSSALITH_LEGWEAR.get(), 0.5));
-            event.accept(ItemHelper.newFlippers(ItemRegistry.ABYSSALITH_FLIPPERS.get(), 0.7));
+            event.accept(ItemHelper.newFlippers(ItemRegistry.ABYSSALITH_FLIPPERS.get(), 0.7));*/
 
             //Materials
-            event.accept(ItemRegistry.ABYSSALITH_FRAGMENT);
+/*            event.accept(ItemRegistry.ABYSSALITH_FRAGMENT);
             event.accept(ItemRegistry.ABYSSALITH_CORE);
-            event.accept(ItemRegistry.ABYSSALITH_UPGRADE);
+            event.accept(ItemRegistry.ABYSSALITH_UPGRADE);*/
 
             //Discs
             event.accept(ItemRegistry.DISC_FRAGMENT_HADAL);
@@ -98,8 +98,8 @@ public class CreativeTabRegistry {
 
             //Natural Blocks
             event.accept(BlockRegistry.OXYGEN_VENT);
-            event.accept(BlockRegistry.VOIDSTONE);
-            event.accept(BlockRegistry.HADAL_CORAL);
+            //event.accept(BlockRegistry.VOIDSTONE);
+            //event.accept(BlockRegistry.HADAL_CORAL);
 
             //Crate Blocks
             event.accept(BlockRegistry.HADAL_CRATE);

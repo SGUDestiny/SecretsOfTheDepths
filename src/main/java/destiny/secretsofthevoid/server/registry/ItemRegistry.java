@@ -24,11 +24,11 @@ public class ItemRegistry {
     public static final Rarity RARITY_ABYSSAL = Rarity.create("secretsofthevoid:abyssal", ChatFormatting.BLUE);
 
     //Materials
-    public static final RegistryObject<Item> ABYSSALITH_FRAGMENT = ITEMS.register("abyssalith_fragment",
+/*    public static final RegistryObject<Item> ABYSSALITH_FRAGMENT = ITEMS.register("abyssalith_fragment",
             () -> new Item(new Item.Properties().rarity(Rarity.RARE).fireResistant()));
     public static final RegistryObject<Item> ABYSSALITH_CORE = ITEMS.register("abyssalith_core",
-            () -> new Item(new Item.Properties().rarity(Rarity.EPIC).fireResistant().stacksTo(16)));
-    public static final RegistryObject<SmithingTemplateItem> ABYSSALITH_UPGRADE = ITEMS.register("abyssalith_upgrade_smithing_template",
+            () -> new Item(new Item.Properties().rarity(Rarity.EPIC).fireResistant().stacksTo(16)));*/
+/*    public static final RegistryObject<SmithingTemplateItem> ABYSSALITH_UPGRADE = ITEMS.register("abyssalith_upgrade_smithing_template",
             () -> new SmithingTemplateItem(
                     Component.translatable(Util.makeDescriptionId("item",
                             new ResourceLocation(SecretsOfTheVoid.MODID, "smithing_template.abyssalith_upgrade.applies_to"))).withStyle(ChatFormatting.BLUE),
@@ -55,7 +55,7 @@ public class ItemRegistry {
                             new ResourceLocation("item/empty_slot_ingot")
                     )
             )
-    );
+    );*/
     public static final RegistryObject<Item> NUCLEAR_PASTA = ITEMS.register("nuclear_pasta",
             () -> new RadioactiveItem(new Item.Properties().rarity(ACItemRegistry.RARITY_NUCLEAR).fireResistant(), 0.001F));
     public static final RegistryObject<Item> IRRADIUM_PLATE = ITEMS.register("irradium_plate",
@@ -98,7 +98,7 @@ public class ItemRegistry {
             () -> new NetheriteFlippersItem(ArmorMaterialRegistry.NETHERITE_DIVING_GEAR, ArmorItem.Type.BOOTS,
                     new Item.Properties().stacksTo(1).fireResistant()));
 
-    public static final RegistryObject<AbyssalithMaskItem> ABYSSALITH_MASK = ITEMS.register("abyssalith_mask",
+/*    public static final RegistryObject<AbyssalithMaskItem> ABYSSALITH_MASK = ITEMS.register("abyssalith_mask",
             () -> new AbyssalithMaskItem(ArmorMaterialRegistry.ABYSSALITH_DIVING_GEAR, ArmorItem.Type.HELMET,
                     new Item.Properties().stacksTo(1).fireResistant().rarity(Rarity.RARE)));
     public static final RegistryObject<AbyssalithBacktankItem> ABYSSALITH_BACKTANK = ITEMS.register("abyssalith_backtank",
@@ -109,10 +109,10 @@ public class ItemRegistry {
                     new Item.Properties().stacksTo(1).fireResistant().rarity(Rarity.RARE)));
     public static final RegistryObject<AbyssalithFlippersItem> ABYSSALITH_FLIPPERS = ITEMS.register("abyssalith_flippers",
             () -> new AbyssalithFlippersItem(ArmorMaterialRegistry.ABYSSALITH_DIVING_GEAR, ArmorItem.Type.BOOTS,
-                    new Item.Properties().stacksTo(1).fireResistant().rarity(Rarity.RARE)));
+                    new Item.Properties().stacksTo(1).fireResistant().rarity(Rarity.RARE)));*/
 
     //Armor
-    public static final RegistryObject<Item> SCORIA_HELMET = ITEMS.register("scoria_helmet",
+/*    public static final RegistryObject<Item> SCORIA_HELMET = ITEMS.register("scoria_helmet",
             () -> new ArmorItem(ArmorMaterialRegistry.ABYSSALITH, ArmorItem.Type.HELMET,
                     new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
     public static final RegistryObject<Item> SCORIA_CHESTPLATE = ITEMS.register("scoria_chestplate",
@@ -123,7 +123,7 @@ public class ItemRegistry {
                     new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
     public static final RegistryObject<Item> SCORIA_BOOTS = ITEMS.register("scoria_boots",
             () -> new ArmorItem(ArmorMaterialRegistry.ABYSSALITH, ArmorItem.Type.BOOTS,
-                    new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
+                    new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));*/
 
     //Tools
     public static final RegistryObject<HadalSwordItem> HADAL_SWORD = ITEMS.register("hadal_sword",
@@ -139,13 +139,13 @@ public class ItemRegistry {
             () -> new HadalHoeItem(ToolTierRegistry.HADAL, 0, 1f,
                     new Item.Properties().fireResistant().rarity(Rarity.RARE)));
 
+    public static final RegistryObject<SievertRodItem> SIEVERT_ROD = ITEMS.register("sievert_rod",
+            () -> new SievertRodItem(new Item.Properties().stacksTo(1).durability(128)));
+
     //Special tools
     public static final RegistryObject<TrenchbleederItem> TRENCHBLEEDER = ITEMS.register("trenchbleeder",
             () -> new TrenchbleederItem(ToolTierRegistry.TRENCHBLEEDER, 2.5f, -2.0f,
                     new Item.Properties().fireResistant().rarity(RARITY_ABYSSAL)));
-
-    public static final RegistryObject<SievertRodItem> SIEVERT_ROD = ITEMS.register("sievert_rod",
-            () -> new SievertRodItem(new Item.Properties().stacksTo(1)));
 
     //Misc Items
     public static final RegistryObject<CalligraphyKitItem> CALLIGRAPHY_KIT = ITEMS.register("calligraphy_kit",

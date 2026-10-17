@@ -2,6 +2,7 @@ package destiny.secretsofthevoid.server.items;
 
 import destiny.secretsofthevoid.server.registry.NetworkRegistry;
 import destiny.secretsofthevoid.server.network.packets.OpenGUIAlphabetPacket;
+import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,16 +22,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AncientAlphabetItem extends Item
-{
-
-    public AncientAlphabetItem(Properties properties)
-    {
+public class AncientAlphabetItem extends Item {
+    public AncientAlphabetItem(Properties properties) {
         super(properties);
     }
-    // Should open a texture on RMB; If present in hotbar, adds a texture to Spelunkery table GUI on the right side
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand)
-    {
+
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         level.playSound(player, player.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.BLOCKS, 1.0F, 1.0F + (player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.2F);
 
         ItemStack itemStackIn = player.getItemInHand(hand);
@@ -44,8 +41,7 @@ public class AncientAlphabetItem extends Item
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag)
-    {
-        tooltip.add(Component.translatable("tooltip.secretsofthevoid.ancient_alphabet_desc"));
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        tooltip.add(Component.translatable("tooltip.secretsofthevoid.ancient_alphabet_desc").withStyle(ChatFormatting.GRAY));
     }
 }

@@ -1,5 +1,6 @@
 package destiny.secretsofthevoid.server.registry;
 
+import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -26,10 +27,10 @@ public enum ToolTierRegistry implements Tier {
     //});
 
     //Tool tiers
-    HADAL(5, 3800, 13.0F, 5F, 18, ItemRegistry.ABYSSALITH_CORE.get()),
+    HADAL(5, 3800, 13.0F, 5F, 18, ACItemRegistry.PEARL.get()),
 
     //Special item tiers
-    TRENCHBLEEDER(5, 4500, 13.0F, 10F, 25, ItemRegistry.ABYSSALITH_CORE.get());
+    TRENCHBLEEDER(5, 4500, 13.0F, 10F, 25, ACItemRegistry.PEARL.get());
 
     private float attackDamage, efficiency;
     private int durability, harvestLevel, enchantability;

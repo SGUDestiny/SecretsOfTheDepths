@@ -16,6 +16,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class AcidBlockMixin {
     @Inject(method = "entityInside", at = @At(value = "HEAD"), cancellable = true)
     private void entityInside(BlockState blockState, Level level, BlockPos pos, Entity entity, CallbackInfo ci) {
+        if (entity.invulnerableTime > 0) {
+            ci.cancel();
+        }
+
         if (entity instanceof ItemEntity itemEntity && itemEntity.getItem().is(TagRegistry.RESISTS_ACID)) {
             ci.cancel();
         }

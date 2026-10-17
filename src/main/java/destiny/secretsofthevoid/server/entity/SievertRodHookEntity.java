@@ -3,11 +3,15 @@ package destiny.secretsofthevoid.server.entity;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
+import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRarity;
+import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
+import destiny.secretsofthevoid.server.SecretsOfTheVoid;
 import destiny.secretsofthevoid.server.registry.EntityRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -40,6 +44,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class SievertRodHookEntity extends FishingHook {
+    public static final ResourceLocation TOXIC_CAVES_FISHING = ResourceLocation.tryBuild(SecretsOfTheVoid.MODID, "gameplay/fishing/toxic_caves");
+
     public SievertRodHookEntity(EntityType<? extends SievertRodHookEntity> pEntityType, Level pLevel, int pLuck, int pLureSpeed) {
         super(pEntityType, pLevel);
     }
@@ -275,7 +281,14 @@ public class SievertRodHookEntity extends FishingHook {
                 i = this.hookedIn instanceof ItemEntity ? 3 : 5;
             } else if (this.nibble > 0) {
                 LootParams lootparams = (new LootParams.Builder((ServerLevel)this.level())).withParameter(LootContextParams.ORIGIN, this.position()).withParameter(LootContextParams.TOOL, pStack).withParameter(LootContextParams.THIS_ENTITY, this).withParameter(LootContextParams.KILLER_ENTITY, this.getOwner()).withParameter(LootContextParams.THIS_ENTITY, this).withLuck((float)this.luck + player.getLuck()).create(LootContextParamSets.FISHING);
-                LootTable loottable = this.level().getServer().getLootData().getLootTable(BuiltInLootTables.FISHING);
+                LootTable loottable;
+
+                if (level().getBiome(this.blockPosition()).is(ACBiomeRegistry.TOXIC_CAVES)) {
+                    loottable = this.level().getServer().getLootData().getLootTable(TOXIC_CAVES_FISHING);
+                } else {
+                    loottable = this.level().getServer().getLootData().getLootTable(BuiltInLootTables.FISHING);
+                }
+
                 List<ItemStack> list = loottable.getRandomItems(lootparams);
                 event = new ItemFishedEvent(list, this.onGround() ? 2 : 1, this);
                 MinecraftForge.EVENT_BUS.post(event);
@@ -293,7 +306,7 @@ public class SievertRodHookEntity extends FishingHook {
                     double d2 = player.getZ() - this.getZ();
                     double d3 = 0.1;
                     itementity.setDeltaMovement(d0 * 0.1, d1 * 0.1 + Math.sqrt(Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2)) * 0.08, d2 * 0.1);
-                    itementity.invulnerableTime = 20;
+                    itementity.invulnerableTime = 60;
                     this.level().addFreshEntity(itementity);
                     player.level().addFreshEntity(new ExperienceOrb(player.level(), player.getX(), player.getY() + (double)0.5F, player.getZ() + (double)0.5F, this.random.nextInt(6) + 1));
                     if (itemstack.is(ItemTags.FISHES)) {

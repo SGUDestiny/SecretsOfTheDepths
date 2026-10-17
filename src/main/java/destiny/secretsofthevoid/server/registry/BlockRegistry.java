@@ -24,20 +24,20 @@ public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SecretsOfTheVoid.MODID);
 
     //Natural Blocks
-    public static final RegistryObject<Block> VOIDSTONE = registerBlock("voidstone",
+/*    public static final RegistryObject<Block> VOIDSTONE = registerBlock("voidstone",
             () -> new Block(BlockBehaviour.
-                    Properties.of().mapColor(MapColor.COLOR_MAGENTA).strength(35.0F, 2000).sound(SoundType.ANCIENT_DEBRIS)));
+                    Properties.of().mapColor(MapColor.COLOR_MAGENTA).strength(35.0F, 2000).sound(SoundType.ANCIENT_DEBRIS)));*/
     public static final RegistryObject<Block> OXYGEN_VENT = registerBlock("oxygen_vent",
             () -> new OxygenVentBlock(BlockBehaviour.
                     Properties.of().mapColor(MapColor.COLOR_GRAY).strength(3.0F, 6).sound(SoundType.DEEPSLATE).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> SUSPICIOUS_MUCK = registerBlock("suspicious_muck",
             () -> new BrushableBlock(ACBlockRegistry.MUCK.get(), BlockBehaviour.
                     Properties.of().mapColor(DyeColor.LIGHT_GRAY).strength(0.5F).sound(SoundType.FROGSPAWN).pushReaction(PushReaction.DESTROY), SoundEvents.BRUSH_SAND, SoundEvents.BRUSH_SAND_COMPLETED));
-    public static final RegistryObject<Block> HADAL_CORAL = registerBlock("hadal_coral",
+/*    public static final RegistryObject<Block> HADAL_CORAL = registerBlock("hadal_coral",
             () -> new HadalCoralBlock(BlockBehaviour.
                     Properties.of().mapColor(MapColor.COLOR_BLUE).strength(6.0F, 10).sound(SoundType.CORAL_BLOCK).requiresCorrectToolForDrops().noOcclusion().lightLevel((p_152680_) -> {
                         return 5 * p_152680_.getValue(HadalCoralBlock.STAGE);
-                    })));
+                    })));*/
 
     //Craftable Blocks
     public static final RegistryObject<AbyssmarineSigilBlock> ABYSSMARINE_SIGIL_COMMONER = registerBlock("abyssmarine_sigil_commoner",

@@ -1,0 +1,18 @@
+{
+  "loader": "forge:separate_transforms",
+  "gui_light": "front",
+  "base": {
+    "parent": "secretsofthevoid:item/sievert_rod_third_person"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "secretsofthevoid:item/sievert_rod_inventory"
+    },
+    "fixed": {
+      "parent": "secretsofthevoid:item/sievert_rod_inventory"
+    },
+    "ground": {
+      "parent": "secretsofthevoid:item/sievert_rod_inventory"
+    }
+  }
+}

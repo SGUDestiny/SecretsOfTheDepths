@@ -1,6 +1,7 @@
 package destiny.secretsofthevoid.server.items;
 
 import destiny.secretsofthevoid.server.registry.ItemRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -20,20 +21,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class CalligraphyKitItem extends Item
-{
-    public CalligraphyKitItem(Properties props)
-    {
+public class CalligraphyKitItem extends Item {
+    public CalligraphyKitItem(Properties props) {
         super(props);
     }
 
-    public UseAnim getUseAnimation(ItemStack stack)
-    {
+    public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.BOW;
     }
 
-    public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int count)
-    {
+    public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int count) {
         if(entity instanceof Player player) {
             if(isEnchantingTable(player, level)) {
                 if (count % 10 == 0) {
@@ -44,8 +41,7 @@ public class CalligraphyKitItem extends Item
         }
     }
 
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn)
-    {
+    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         playerIn.startUsingItem(handIn);
 
@@ -59,24 +55,21 @@ public class CalligraphyKitItem extends Item
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity)
-    {
-        if(!level.isClientSide() && entity instanceof Player player)
-        {
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
+        if(!level.isClientSide() && entity instanceof Player player) {
 
-            if(isEnchantingTable(player, level))
-            {
+            if(isEnchantingTable(player, level)) {
                 player.setItemInHand(player.getUsedItemHand(), new ItemStack(ItemRegistry.ANCIENT_ALPHABET.get()));
                 level.playSound(player, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1, 1);
             }
         }
+
         return super.finishUsingItem(stack, level, entity);
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag)
-    {
-        tooltip.add(Component.translatable("tooltip.secretsofthevoid.calligraphy_kit_desc"));
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        tooltip.add(Component.translatable("tooltip.secretsofthevoid.calligraphy_kit_desc").withStyle(ChatFormatting.GRAY));
     }
 
     public boolean isEnchantingTable(Player player, Level level){

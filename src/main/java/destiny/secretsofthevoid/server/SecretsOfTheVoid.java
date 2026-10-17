@@ -1,23 +1,23 @@
 package destiny.secretsofthevoid.server;
 
-import com.github.alexmodguy.alexscaves.server.CommonProxy;
 import destiny.secretsofthevoid.client.gui.OxygenOverlay;
+import destiny.secretsofthevoid.client.render.SuspiciousBlockEntityRenderer;
 import destiny.secretsofthevoid.client.render.entity.SievertRodHookEntityRenderer;
 import destiny.secretsofthevoid.client.render.particle.NeutronParticle;
 import destiny.secretsofthevoid.server.registry.*;
 import destiny.secretsofthevoid.server.items.tools.HadalItemProperty;
 import destiny.secretsofthevoid.server.worldgen.feature.ModFeatures;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.client.renderer.entity.FishingHookRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -25,12 +25,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import destiny.secretsofthevoid.client.ClientProxy;
 
 @Mod(SecretsOfTheVoid.MODID)
 public class SecretsOfTheVoid {
     public static final String MODID = "secretsofthevoid";
-    public static CommonProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 
     public SecretsOfTheVoid() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -67,8 +65,6 @@ public class SecretsOfTheVoid {
 
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            event.enqueueWork(() -> PROXY.clientInit());
-
             event.enqueueWork(() -> {
                 ItemProperties.register(ItemRegistry.HADAL_SWORD.get(), new ResourceLocation(MODID, "active"), new HadalItemProperty());
                 ItemProperties.register(ItemRegistry.HADAL_PICKAXE.get(), new ResourceLocation(MODID, "active"), new HadalItemProperty());
@@ -76,12 +72,31 @@ public class SecretsOfTheVoid {
                 ItemProperties.register(ItemRegistry.HADAL_HOE.get(), new ResourceLocation(MODID, "active"), new HadalItemProperty());
 
                 EntityRenderers.register(EntityRegistry.SIEVERT_ROD_HOOK.get(), SievertRodHookEntityRenderer::new);
+
+                ItemProperties.register(ItemRegistry.SIEVERT_ROD.get(), new ResourceLocation("cast"),
+                        (stack, level, entity, duration) -> {
+                    if (entity == null) return 0f;
+
+                    boolean isMainHand = entity.getMainHandItem() == stack;
+                    boolean isOffHand = entity.getOffhandItem() == stack;
+
+                    if (isMainHand) {
+                        isOffHand = false;
+                    }
+
+                    return (isMainHand || isOffHand) && entity instanceof Player player && player.fishing != null ? 1f : 0f;
+                });
             });
         }
 
         @SubscribeEvent
         public static void registerParticleProvider(RegisterParticleProvidersEvent event) {
             event.registerSpecial(ParticleTypeRegistry.NEUTRON.get(), new NeutronParticle.Provider());
+        }
+
+        @SubscribeEvent
+        public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(BlockEntityRegistry.SUSPICIOUS_BLOCK.get(), SuspiciousBlockEntityRenderer::new);
         }
     }
 

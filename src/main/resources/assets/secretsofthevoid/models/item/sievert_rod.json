@@ -1,0 +1,19 @@
+{
+  "base": {
+    "parent": "secretsofthevoid:item/sievert_rod_inventory"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "cast": 0
+      },
+      "model": "secretsofthevoid:item/sievert_rod_uncast"
+    },
+    {
+      "predicate": {
+        "cast": 1
+      },
+      "model": "secretsofthevoid:item/sievert_rod_cast"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "  P",
+    " PU",
+    "P U"
+  ],
+  "key": {
+    "U": {
+      "item": "alexscaves:uranium"
+    },
+    "P": {
+      "item": "alexscaves:polymer_plate"
+    }
+  },
+  "result": {
+    "item": "secretsofthevoid:sievert_rod",
+    "count": 1
+  }
+}

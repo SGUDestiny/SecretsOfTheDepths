@@ -1,13 +1,17 @@
 package destiny.secretsofthevoid.server.blocks;
 
 import destiny.secretsofthevoid.server.SecretsOfTheVoid;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -58,5 +62,10 @@ public class BiomeCrateBlock extends Block {
         LootParams lootParams = lootBuilder.withParameter(LootContextParams.ORIGIN, posVec).create(LootContextParamSets.CHEST);
 
         return lootTable.getRandomItems(lootParams);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        pTooltip.add(Component.translatable("tooltip.secretsofthevoid.crate").withStyle(ChatFormatting.GRAY));
     }
 }

@@ -64,10 +64,10 @@ public class OxygenOverlay {
                 } else if (stack.is(ItemRegistry.NETHERITE_BACKTANK.get())) {
                     FULL = NETHERITE_FULL;
                     HALF = NETHERITE_HALF;
-                } else if (stack.is(ItemRegistry.ABYSSALITH_BACKTANK.get())) {
+                } /*else if (stack.is(ItemRegistry.ABYSSALITH_BACKTANK.get())) {
                     FULL = ABYSSALITH_FULL;
                     HALF = ABYSSALITH_HALF;
-                }
+                }*/
             }
 
             oxygen = cap.getOxygen();

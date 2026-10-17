@@ -25,7 +25,7 @@ public enum ArmorMaterialRegistry implements ArmorMaterial {
         p_266655_.put(ArmorItem.Type.CHESTPLATE, 9);
         p_266655_.put(ArmorItem.Type.HELMET, 4);
     }), 18, SoundEvents.ARMOR_EQUIP_TURTLE, 5.0F, 0.3F, () -> {
-        return Ingredient.of(ItemRegistry.ABYSSALITH_CORE.get());
+        return Ingredient.of(ACItemRegistry.PEARL.get());
     }),
 
     //Diving Gear
@@ -44,15 +44,15 @@ public enum ArmorMaterialRegistry implements ArmorMaterial {
         p_266655_.put(ArmorItem.Type.HELMET, 1);
     }), 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 1.5F, 0.05F, () -> {
         return Ingredient.of(Items.NETHERITE_INGOT);
-    }),
-    ABYSSALITH_DIVING_GEAR("abyssalith_diving_gear", 41, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266655_) -> {
+    });
+/*    ABYSSALITH_DIVING_GEAR("abyssalith_diving_gear", 41, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266655_) -> {
         p_266655_.put(ArmorItem.Type.BOOTS, 2);
         p_266655_.put(ArmorItem.Type.LEGGINGS, 4);
         p_266655_.put(ArmorItem.Type.CHESTPLATE, 5);
         p_266655_.put(ArmorItem.Type.HELMET, 2);
     }), 18, SoundEvents.ARMOR_EQUIP_GOLD, 2.5F, 0.15F, () -> {
         return Ingredient.of(ItemRegistry.ABYSSALITH_CORE.get());
-    });
+    });*/
 
     public static final StringRepresentable.EnumCodec<ArmorMaterials> CODEC = StringRepresentable.fromEnum(ArmorMaterials::values);
     private static final EnumMap<ArmorItem.Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266653_) -> {

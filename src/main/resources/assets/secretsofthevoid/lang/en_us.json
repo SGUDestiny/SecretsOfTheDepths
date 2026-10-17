@@ -24,6 +24,7 @@
     "item.secretsofthevoid.abyssalith_fragment": "Abyssalith Fragment",
     "item.secretsofthevoid.abyssalith_core": "Abyssalith Core",
 
+    "item.secretsofthevoid.sievert_rod": "Sievert Rod",
     "item.secretsofthevoid.nuclear_pasta": "Nuclear Pasta",
     "item.secretsofthevoid.irradium_plate": "Irradium Plate",
 
@@ -80,6 +81,7 @@
     "tooltip.secretsofthevoid.flippers_speed": "Swimming Speed: ",
     "tooltip.secretsofthevoid.pressure_drain": "If placed on functioning oxygen vent, can refill backtank on [RMB]",
     "tooltip.secretsofthevoid.abyssmarine_sigil" : "Place the Abyssal Sigil under the Altar, and only it's respective type of Deep One will trade",
+    "tooltip.secretsofthevoid.crate" : "Break with an axe to open",
 
     "_sounds": "Sounds",
 
